@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>乐理教学助手</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body>
+    <main class="theory-site" data-app>
+      <header class="site-header" aria-label="乐理教学助手导航">
+        <a class="brand-mark" href="#studio" aria-label="乐理教学助手首页">
+          <span class="brand-note" aria-hidden="true">♮</span>
+          <strong>乐理教学助手</strong>
+        </a>
+        <nav class="site-nav" aria-label="页面区块">
+          <a href="#levels">阶段</a>
+          <a href="#workbench">资源台</a>
+          <a href="#detail">详情</a>
+        </nav>
+      </header>
+
+      <section class="hero" id="studio" aria-label="乐理教学助手首屏">
+        <div class="hero-copy">
+          <p class="marker-caption">music theory workspace</p>
+          <h1>把乐理课先装进一个会长大的工作台。</h1>
+          <p class="intro-copy">
+            当前项目从零开始，先保留阶段、模块、资源位、练习步骤和复盘入口。
+            <span>真实资料后续再逐步挂载。</span>
+          </p>
+          <div id="heroStats" class="stat-row" aria-label="工作台统计" aria-live="polite"></div>
+          <div class="hero-actions">
+            <a class="pill-button" href="#workbench">打开资源台</a>
+            <a class="quiet-link" href="#levels">查看阶段</a>
+          </div>
+          <p class="preorder-note">零资料框架 · 所有讲义、音频、谱面和题卡均标记为待填充。</p>
+        </div>
+
+        <div class="hero-product" aria-label="乐理工作台视觉">
+          <div class="theory-notebook">
+            <div class="notebook-cover">
+              <div class="staff-lines" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
+                <b style="--x:18%;--y:58%"></b>
+                <b style="--x:43%;--y:34%"></b>
+                <b style="--x:70%;--y:48%"></b>
+              </div>
+              <div class="name-sticker">
+                <span>Course</span>
+                <strong>乐理基础</strong>
+                <div class="sticker-grid">
+                  <p><span>资料</span><b>0</b></p>
+                  <p><span>状态</span><b>待填充</b></p>
+                </div>
+              </div>
+              <p class="cover-note">module shell · practice path · review drawer</p>
+            </div>
+          </div>
+          <div class="rhythm-tiles" aria-hidden="true">
+            <span>1</span><span>&amp;</span><span>2</span><span>&amp;</span>
+          </div>
+          <p class="scribble-caption">先搭骨架</p>
+        </div>
+      </section>
+
+      <section class="product-row" aria-label="乐理框架摘要">
+        <div class="showcase-object score-card-visual" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+          <b></b><b></b><b></b>
+        </div>
+        <div class="showcase-copy">
+          <p class="marker-caption">like guitar-web</p>
+          <h2>保留模板的浏览节奏，换成乐理课的模块语言。</h2>
+          <p>阶段用于定位学习进度，资源台用于暂存讲义、练习、音频位和题卡，详情区用于展示课堂步骤与完成标准。</p>
+        </div>
+        <div class="showcase-object cover-gallery-shell">
+          <div
+            id="coverGallery"
+            class="circular-gallery"
+            tabindex="0"
+            role="region"
+            aria-label="音乐理论封面画廊，拖动或使用左右方向键切换"
+          ></div>
+          <p class="gallery-hint">drag / wheel / arrow keys</p>
+        </div>
+      </section>
+
+      <section class="section grade-course-picker-section" aria-label="Grade course picker">
+        <div id="levelSongPicker" class="level-song-picker" aria-live="polite" hidden></div>
+      </section>
+
+      <section class="section levels-section" id="levels" aria-label="乐理学习阶段">
+        <div class="section-heading">
+          <p class="marker-caption">blank level path</p>
+          <h2>阶段先站好，资料慢慢补。</h2>
+          <p id="levelSummary" aria-live="polite"></p>
+        </div>
+        <div id="levelBoard" class="level-board chroma-grid" aria-label="阶段选择"></div>
+      </section>
+
+      <section class="section workbench-section" id="workbench" aria-label="乐理资源工作台">
+        <div class="section-heading wide">
+          <p class="marker-caption">resource workbench</p>
+          <h2>每个资源都是占位卡，不偷偷接入任何旧内容。</h2>
+        </div>
+        <div class="filters" aria-label="筛选资源">
+          <label>
+            <span>搜索</span>
+            <input id="queryInput" type="search" placeholder="节奏、视唱、错题" />
+          </label>
+          <label>
+            <span>阶段</span>
+            <select id="levelFilter">
+              <option value="all">全部阶段</option>
+            </select>
+          </label>
+          <label>
+            <span>模块</span>
+            <select id="moduleFilter">
+              <option value="all">全部模块</option>
+            </select>
+          </label>
+        </div>
+        <div class="catalog-head">
+          <div>
+            <strong id="resourceCount">0 个占位资源</strong>
+            <p id="activeSummary">全部空白资源位</p>
+          </div>
+          <div id="tagCloud" class="tag-cloud" aria-label="资源标签"></div>
+        </div>
+        <div id="resourceList" class="resource-label-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="section lesson-section" id="detail" aria-label="模块详情">
+        <div class="section-heading">
+          <p class="marker-caption">module detail</p>
+          <h2>课堂说明、练习步骤、资源位和测评位放在同一张卡里。</h2>
+        </div>
+        <article id="moduleDetail" class="lesson-card" aria-live="polite"></article>
+      </section>
+    </main>
+
+    <footer class="footer-band" aria-label="乐理教学助手状态">
+      <strong>Music Theory Teaching Assistant</strong>
+      <p>Static zero-data framework. Fill course materials only after the project bus assigns data tasks.</p>
+    </footer>
+
+    <script type="module" src="./assets/app.mjs"></script>
+  </body>
+</html>

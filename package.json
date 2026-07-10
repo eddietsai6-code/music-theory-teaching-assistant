@@ -1,0 +1,15 @@
+{
+  "name": "music-theory-teaching-assistant",
+  "version": "0.1.0",
+  "description": "Static music theory teaching workspace.",
+  "type": "module",
+  "scripts": {
+    "test": "node --check assets/app.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eddietsai6-code/music-theory-teaching-assistant.git"
+  },
+  "homepage": "https://github.com/eddietsai6-code/music-theory-teaching-assistant#readme",
+  "license": "MIT"
+}
