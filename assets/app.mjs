@@ -188,6 +188,7 @@ const RESOURCE_SHELLS = [
 ];
 
 const DETAIL_TABS = ["课程", "练习", "资源", "测评"];
+const COURSE_TABS = ["Lesson", "Audio", "Score", "Metro"];
 
 const COVER_GALLERY_ITEMS = [
   {
@@ -319,6 +320,32 @@ const GRADE_COURSE_ITEMS = {
   ],
 };
 
+const GRADE_COURSE_PAGE_META = {
+  "course-01": { studentPages: [8, 14], answerPages: [2, 5], studentPageCount: 7, answerPageCount: 4 },
+  "course-02": { studentPages: [15, 19], answerPages: [6, 8], studentPageCount: 5, answerPageCount: 3 },
+  "course-03": { studentPages: [20, 25], answerPages: [8, 11], studentPageCount: 6, answerPageCount: 4 },
+  "course-04": { studentPages: [26, 30], answerPages: [12, 14], studentPageCount: 5, answerPageCount: 3 },
+  "course-05": { studentPages: [31, 35], answerPages: [14, 17], studentPageCount: 5, answerPageCount: 4 },
+  "course-06": { studentPages: [36, 41], answerPages: [18, 20], studentPageCount: 6, answerPageCount: 3 },
+  "course-07": { studentPages: [42, 46], answerPages: [21, 23], studentPageCount: 5, answerPageCount: 3 },
+  "course-08": { studentPages: [47, 50], answerPages: [24, 26], studentPageCount: 4, answerPageCount: 3 },
+  "course-09": { studentPages: [51, 52], answerPages: [26, 27], studentPageCount: 2, answerPageCount: 2 },
+  "course-10": { studentPages: [53, 57], answerPages: [27, 29], studentPageCount: 5, answerPageCount: 3 },
+  "course-11": { studentPages: [58, 61], answerPages: [29, 30], studentPageCount: 4, answerPageCount: 2 },
+};
+
+const COURSE_ACCENTS = {
+  rhythm: "#f6b331",
+  pitch: "#0ea5b7",
+  "notation / pulse": "#24a148",
+  scales: "#3454d1",
+  keys: "#0f8c5a",
+  intervals: "#d9488b",
+  triads: "#8b5cf6",
+  terms: "#e6422e",
+  "music in context": "#f97316",
+};
+
 export function createBlankTheoryWorkspace() {
   const levels = THEORY_LEVELS.map((level) => ({
     ...level,
@@ -430,7 +457,63 @@ export function getTheoryCoverGalleryItems() {
 }
 
 export function getTheoryCoursePickerItems(gradeId = "grade-1") {
-  return (GRADE_COURSE_ITEMS[gradeId] || []).map((item) => ({ ...item }));
+  return (GRADE_COURSE_ITEMS[gradeId] || []).map((item) => hydrateTheoryCourse(item, gradeId));
+}
+
+export function getTheoryCourseDetail(courseId = "course-01", gradeId = "grade-1") {
+  const courses = getTheoryCoursePickerItems(gradeId);
+  return courses.find((course) => course.id === courseId) || courses[0] || null;
+}
+
+function hydrateTheoryCourse(item, gradeId) {
+  const meta = GRADE_COURSE_PAGE_META[item.id] || {};
+  const accent = COURSE_ACCENTS[item.category] || "#24a148";
+  const pageLabel =
+    meta.studentPages && meta.answerPages
+      ? `Student ${meta.studentPages[0]}-${meta.studentPages[1]} · Answers ${meta.answerPages[0]}-${meta.answerPages[1]}`
+      : "Pages pending";
+
+  return {
+    ...item,
+    gradeId,
+    classLabel: "Grade 1",
+    source: "Discover Theory Grade 1",
+    artist: "ABRSM Discovering Music Theory",
+    type: "Theory Course",
+    style: item.role,
+    accent,
+    pageLabel,
+    tags: [item.category, "Grade 1", "score preview"],
+    tabs: COURSE_TABS,
+    teaching: {
+      goal: `掌握${item.location}，能在谱面中准确识别并完成基础练习。`,
+      focus: `围绕「${item.title}」先读题、圈出关键符号，再完成书面练习。`,
+      practiceOrder: ["读课题", "圈关键词", "完成例题", "核对答案"],
+      commonIssues: ["只背定义不看谱例", "忽略题目里的拍号或调号", "答案订正没有写原因"],
+      passStandard: "能独立完成本课学生页第一组练习，并用答案页核对后留下错因。",
+    },
+    audioSlots: [
+      {
+        title: "课堂讲解音频位",
+        label: `${item.title} · audio slot`,
+        src: "",
+      },
+    ],
+    scoreImages: [
+      {
+        kind: "student",
+        title: `${item.title} · 学生页预览`,
+        src: `./assets/scores/grade-1/${item.id}/student-page-01.webp`,
+        pageCount: meta.studentPageCount || 0,
+      },
+      {
+        kind: "answers",
+        title: `${item.title} · 答案页预览`,
+        src: `./assets/scores/grade-1/${item.id}/answers-page-01.webp`,
+        pageCount: meta.answerPageCount || 0,
+      },
+    ],
+  };
 }
 
 function normalize(value) {
@@ -901,166 +984,182 @@ function renderModuleDetail(detail, activeTab) {
   `;
 }
 
-function levelShort(grade) {
-  return grade?.text?.replace(/\s+/g, " ") || "Grade";
+function tabKey(tab) {
+  return normalize(tab);
 }
 
-function renderLevelSongPicker(container, grade) {
-  if (!container || !grade) return;
-  const courses = getTheoryCoursePickerItems(grade.gradeId);
-  container.hidden = false;
-  container.innerHTML = `
-    <section class="level-song-picker-panel" aria-label="${escapeHtml(grade.title)} course picker">
-      <div class="level-song-picker-head">
-        <div>
-          <p class="marker-caption">choose one song</p>
-          <h3>${escapeHtml(grade.title)} course drawer</h3>
-          <p>${escapeHtml(grade.description)}</p>
-        </div>
-        <button type="button" class="picker-close" data-close-picker aria-label="Close course picker">×</button>
-      </div>
-      <div class="level-song-picker-body">
-        <canvas class="level-song-splash" aria-hidden="true"></canvas>
-        <div class="level-song-picker-grid chroma-grid" style="--r: 300px;">
-          ${courses
-            .map(
-              (course, index) => `
-                <button
-                  type="button"
-                  class="song-picker-card chroma-card"
-                  data-course="${escapeHtml(course.id)}"
-                  aria-label="Choose ${escapeHtml(course.title)}"
-                >
-                  <div class="chroma-img-wrapper song-picker-visual">
-                    <span>${escapeHtml(levelShort(grade))}</span>
-                    <strong>${String(index + 1).padStart(2, "0")}</strong>
-                    <em>${escapeHtml(course.category)}</em>
-                  </div>
-                  <footer class="chroma-info song-picker-info">
-                    <h3 class="name">${escapeHtml(course.title)}</h3>
-                    <span class="handle">course</span>
-                    <p class="role">${escapeHtml(course.role)}</p>
-                    <span class="location">${escapeHtml(course.location)}</span>
-                  </footer>
-                </button>
-              `,
-            )
-            .join("")}
-        </div>
-      </div>
-    </section>
+function renderCourseSelector(courses, selectedCourseId) {
+  return `
+    <div class="lesson-course-strip" aria-label="Grade 1 course list">
+      ${courses
+        .map(
+          (course, index) => `
+            <button
+              type="button"
+              class="${course.id === selectedCourseId ? "is-active" : ""}"
+              data-course="${escapeHtml(course.id)}"
+              style="--accent:${escapeHtml(course.accent)}"
+            >
+              <span>${String(index + 1).padStart(2, "0")}</span>
+              <strong>${escapeHtml(course.title)}</strong>
+              <small>${escapeHtml(course.role)}</small>
+            </button>
+          `,
+        )
+        .join("")}
+    </div>
   `;
 }
 
-function closeLevelSongPicker(container) {
-  if (!container) return;
-  container.hidden = true;
-  container.innerHTML = "";
+function renderTheoryCourseLesson(course) {
+  return `
+    <div class="practice-steps">
+      ${course.teaching.practiceOrder
+        .map(
+          (step, index) => `
+            <div>
+              <span>${String(index + 1).padStart(2, "0")}</span>
+              <strong>${escapeHtml(step)}</strong>
+            </div>
+          `,
+        )
+        .join("")}
+    </div>
+    <dl class="lesson-list">
+      <dt>Goal</dt><dd>${escapeHtml(course.teaching.goal)}</dd>
+      <dt>Focus</dt><dd>${escapeHtml(course.teaching.focus)}</dd>
+      <dt>Common issues</dt><dd>${escapeHtml(course.teaching.commonIssues.join("；"))}</dd>
+      <dt>Pass standard</dt><dd>${escapeHtml(course.teaching.passStandard)}</dd>
+      <dt>Mapped pages</dt><dd>${escapeHtml(course.pageLabel)}</dd>
+    </dl>
+  `;
 }
 
-function bindLevelSongPicker(container) {
-  if (!container) return;
-  const grid = container.querySelector(".level-song-picker-grid");
-  const canvas = container.querySelector(".level-song-splash");
-  const ctx = canvas?.getContext("2d");
-  const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-  const particles = [];
-  let frame = 0;
+function renderTheoryCourseAudio(course) {
+  const activeSlot = course.audioSlots[0];
+  const srcAttribute = activeSlot.src ? `src="${escapeHtml(activeSlot.src)}"` : "";
+  return `
+    <div class="audio-workbench">
+      <div class="audio-player-frame">
+        <div class="audio-version-head">
+          <div>
+            <span>practice audio</span>
+            <strong>${escapeHtml(activeSlot.title)}</strong>
+            <em>${escapeHtml(activeSlot.label)}</em>
+          </div>
+        </div>
+        <div class="audio-speed-player-shell">
+          <audio-speed-player
+            ${srcAttribute}
+            label="${escapeHtml(activeSlot.label)}"
+            engine="rubberband"
+            no-upload
+          ></audio-speed-player>
+        </div>
+      </div>
+    </div>
+  `;
+}
 
-  function syncCanvas() {
-    if (!canvas || !ctx) return;
-    const rect = canvas.getBoundingClientRect();
-    const dpr = Math.max(1, window.devicePixelRatio || 1);
-    canvas.width = Math.max(1, Math.floor(rect.width * dpr));
-    canvas.height = Math.max(1, Math.floor(rect.height * dpr));
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+function renderTheoryCourseScores(course) {
+  return `
+    <div class="score-grid">
+      ${course.scoreImages
+        .map(
+          (item) => `
+            <figure class="score-card score-sheet">
+              <div class="score-image-frame">
+                <img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.title)}" loading="eager" decoding="async" />
+              </div>
+              <figcaption>
+                <strong>${escapeHtml(item.kind)}</strong>
+                <span>${escapeHtml(item.pageCount)} pages mapped</span>
+              </figcaption>
+            </figure>
+          `,
+        )
+        .join("")}
+    </div>
+  `;
+}
+
+function renderTheoryCourseMetro() {
+  const metronomeSrc = `https://professional-metronome-c0k.pages.dev/?v=${Date.now()}`;
+  return `
+    <div class="lesson-metronome-shell">
+      <iframe
+        class="lesson-metronome-frame"
+        src="${metronomeSrc}"
+        title="Professional metronome"
+        allow="autoplay"
+      ></iframe>
+    </div>
+  `;
+}
+
+function renderCourseTabPane(course, tab) {
+  if (tab === "audio") return renderTheoryCourseAudio(course);
+  if (tab === "score") return renderTheoryCourseScores(course);
+  if (tab === "metro") return renderTheoryCourseMetro();
+  return renderTheoryCourseLesson(course);
+}
+
+function renderTheoryCourseDetail(course, courses, activeTab) {
+  if (!course) {
+    return `<div class="empty-note"><strong>Grade material pending</strong><span>选择 Grade 1 可以查看已拆分的 11 个课时。</span></div>`;
   }
 
-  function animateSplash() {
-    if (!canvas || !ctx) return;
-    const rect = canvas.getBoundingClientRect();
-    ctx.clearRect(0, 0, rect.width, rect.height);
-    ctx.globalCompositeOperation = "lighter";
-    for (let index = particles.length - 1; index >= 0; index -= 1) {
-      const particle = particles[index];
-      particle.x += particle.vx;
-      particle.y += particle.vy;
-      particle.radius += particle.grow;
-      particle.life -= 0.026;
-      if (particle.life <= 0) {
-        particles.splice(index, 1);
-        continue;
-      }
-      const gradient = ctx.createRadialGradient(
-        particle.x,
-        particle.y,
-        0,
-        particle.x,
-        particle.y,
-        particle.radius,
-      );
-      gradient.addColorStop(0, `rgba(${particle.color}, ${particle.life * 0.44})`);
-      gradient.addColorStop(1, `rgba(${particle.color}, 0)`);
-      ctx.fillStyle = gradient;
-      ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-      ctx.fill();
+  return `
+    <div class="lesson-cover" style="--accent:${escapeHtml(course.accent)}">
+      <span class="label-field">Name</span>
+      <h3>${escapeHtml(course.title)}</h3>
+      <p>${escapeHtml(course.artist)} · ${escapeHtml(course.source)}</p>
+      <div class="sticker-grid lesson-fields">
+        <p><span>Class</span><b>${escapeHtml(course.classLabel)}</b></p>
+        <p><span>Source</span><b>${escapeHtml(course.source)}</b></p>
+        <p><span>Type</span><b>${escapeHtml(course.type)}</b></p>
+      </div>
+      <div class="song-tags">${tagMarkup(course.tags, 5)}</div>
+    </div>
+    <div class="lesson-main">
+      ${renderCourseSelector(courses, course.id)}
+      <div class="lesson-tabs" role="tablist" aria-label="${escapeHtml(course.title)} details">
+        ${course.tabs
+          .map((tab) => {
+            const key = tabKey(tab);
+            return `<button type="button" class="${activeTab === key ? "is-active" : ""}" data-tab="${key}">${escapeHtml(tab)}</button>`;
+          })
+          .join("")}
+      </div>
+      <div class="lesson-content-stack" data-content-stack>
+        <div class="lesson-pane" data-tab-panel="lesson" ${activeTab === "lesson" ? "" : "hidden"}>${renderCourseTabPane(course, "lesson")}</div>
+        <div class="lesson-pane lesson-audio-pane" data-tab-panel="audio" ${activeTab === "audio" ? "" : "hidden"}>${renderCourseTabPane(course, "audio")}</div>
+        <div class="lesson-pane" data-tab-panel="score" ${activeTab === "score" ? "" : "hidden"}>${renderCourseTabPane(course, "score")}</div>
+        <div class="lesson-pane lesson-metronome-pane ${activeTab === "metro" ? "" : "is-parked"}" data-tab-panel="metro">${renderCourseTabPane(course, "metro")}</div>
+      </div>
+    </div>
+  `;
+}
+
+function updateTheoryCourseDetailTab(root, activeTab) {
+  root.querySelectorAll("[data-tab]").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.tab === activeTab);
+  });
+
+  root.querySelectorAll("[data-tab-panel]").forEach((panel) => {
+    const isActive = panel.dataset.tabPanel === activeTab;
+    if (panel.dataset.tabPanel === "metro") {
+      panel.hidden = false;
+      panel.classList.toggle("is-parked", !isActive);
+    } else {
+      panel.hidden = !isActive;
     }
-    ctx.globalCompositeOperation = "source-over";
-    frame = particles.length ? window.requestAnimationFrame(animateSplash) : 0;
-  }
-
-  function paintSplash(event, strength = 1) {
-    if (reducedMotion || !canvas) return;
-    const rect = canvas.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    if (x < 0 || y < 0 || x > rect.width || y > rect.height) return;
-    const colors = ["255,111,30", "255,206,84", "30,210,255", "64,156,255", "39,214,156", "244,114,182"];
-    for (let index = 0; index < (event.pointerType === "touch" ? 8 : 5); index += 1) {
-      const angle = Math.random() * Math.PI * 2;
-      const speed = (0.55 + Math.random() * 1.4) * strength;
-      particles.push({
-        x,
-        y,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        radius: 16 + Math.random() * 24,
-        grow: 0.62 + Math.random() * 1,
-        life: 0.82 + Math.random() * 0.32,
-        color: colors[Math.floor(Math.random() * colors.length)],
-      });
-    }
-    if (!frame) frame = window.requestAnimationFrame(animateSplash);
-  }
-
-  syncCanvas();
-  window.addEventListener("resize", syncCanvas, { passive: true });
-
-  if (grid) {
-    grid.style.setProperty("--x", "50%");
-    grid.style.setProperty("--y", "50%");
-    grid.addEventListener("pointermove", (event) => {
-      const rect = grid.getBoundingClientRect();
-      grid.style.setProperty("--x", `${event.clientX - rect.left}px`);
-      grid.style.setProperty("--y", `${event.clientY - rect.top}px`);
-      paintSplash(event, 0.84);
-      const card = event.target.closest(".chroma-card");
-      if (!card) return;
-      const cardRect = card.getBoundingClientRect();
-      card.style.setProperty("--mouse-x", `${event.clientX - cardRect.left}px`);
-      card.style.setProperty("--mouse-y", `${event.clientY - cardRect.top}px`);
-    });
-    grid.addEventListener("pointerdown", (event) => paintSplash(event, 1.45));
-  }
-
-  container.querySelector("[data-close-picker]")?.addEventListener("click", () => closeLevelSongPicker(container));
+  });
 }
 
 function bindBlankWorkspace(model) {
   const root = document.querySelector("[data-app]");
   const coverGallery = document.getElementById("coverGallery");
-  const levelSongPicker = document.getElementById("levelSongPicker");
   const heroStats = document.getElementById("heroStats");
   const levelBoard = document.getElementById("levelBoard");
   const levelSummary = document.getElementById("levelSummary");
@@ -1071,7 +1170,7 @@ function bindBlankWorkspace(model) {
   const activeSummary = document.getElementById("activeSummary");
   const tagCloud = document.getElementById("tagCloud");
   const resourceList = document.getElementById("resourceList");
-  const moduleDetail = document.getElementById("moduleDetail");
+  const courseDetail = document.getElementById("courseDetail");
 
   if (
     !root ||
@@ -1085,16 +1184,10 @@ function bindBlankWorkspace(model) {
     !activeSummary ||
     !tagCloud ||
     !resourceList ||
-    !moduleDetail
+    !courseDetail
   ) {
     return;
   }
-
-  bindCoverGallery(coverGallery, getTheoryCoverGalleryItems(), (grade) => {
-    renderLevelSongPicker(levelSongPicker, grade);
-    bindLevelSongPicker(levelSongPicker);
-    levelSongPicker?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  });
 
   const state = {
     query: "",
@@ -1102,8 +1195,19 @@ function bindBlankWorkspace(model) {
     module: "all",
     selectedResourceId: model.resources[0]?.id || "",
     selectedModuleId: model.modules[0]?.id || "",
-    detailTab: DETAIL_TABS[0],
+    selectedGradeId: "grade-1",
+    selectedCourseId: "course-01",
+    detailTab: "lesson",
   };
+
+  bindCoverGallery(coverGallery, getTheoryCoverGalleryItems(), (grade) => {
+    const courses = getTheoryCoursePickerItems(grade.gradeId);
+    state.selectedGradeId = grade.gradeId;
+    state.selectedCourseId = courses[0]?.id || "";
+    state.detailTab = "lesson";
+    render();
+    document.getElementById("lesson")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 
   levelFilter.insertAdjacentHTML("beforeend", renderLevelOptions(model));
   moduleFilter.insertAdjacentHTML("beforeend", renderModuleOptions(model));
@@ -1113,20 +1217,17 @@ function bindBlankWorkspace(model) {
     if (!resource) return;
     state.selectedResourceId = resource.id;
     state.selectedModuleId = resource.moduleId;
-    state.detailTab = DETAIL_TABS[0];
     render();
-    if (shouldScroll) document.getElementById("detail")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (shouldScroll) document.getElementById("lesson")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   function setLevel(levelId) {
     state.level = levelId;
-    state.detailTab = DETAIL_TABS[0];
     render();
   }
 
   function setQuery(query) {
     state.query = query;
-    state.detailTab = DETAIL_TABS[0];
     render();
   }
 
@@ -1145,8 +1246,14 @@ function bindBlankWorkspace(model) {
     const selectedResource = model.resources.find((resource) => resource.id === state.selectedResourceId);
     if (selectedResource) state.selectedModuleId = selectedResource.moduleId;
 
-    const detail = getTheoryModuleDetail(model, state.selectedModuleId);
-    const activeLevel = state.level === "all" ? detail.level.id : state.level;
+    const activeModule = findModuleById(model.modules, state.selectedModuleId);
+    const activeLevel = state.level === "all" ? activeModule.level : state.level;
+    const courses = getTheoryCoursePickerItems(state.selectedGradeId);
+    if (!courses.some((course) => course.id === state.selectedCourseId)) {
+      state.selectedCourseId = courses[0]?.id || "";
+      state.detailTab = "lesson";
+    }
+    const selectedCourse = getTheoryCourseDetail(state.selectedCourseId, state.selectedGradeId);
     const summaryParts = [];
     if (state.query.trim()) summaryParts.push(`搜索：${state.query.trim()}`);
     if (state.level !== "all") summaryParts.push(findLevelById(model.levels, state.level).label);
@@ -1163,7 +1270,7 @@ function bindBlankWorkspace(model) {
     activeSummary.textContent = summaryParts.length ? summaryParts.join(" · ") : "全部空白资源位";
     tagCloud.innerHTML = renderTagCloud(model, result.resources);
     resourceList.innerHTML = renderResourceList(model, result.resources, state.selectedResourceId);
-    moduleDetail.innerHTML = renderModuleDetail(detail, state.detailTab);
+    courseDetail.innerHTML = renderTheoryCourseDetail(selectedCourse, courses, state.detailTab);
 
     levelBoard.querySelectorAll("[data-level]").forEach((button) => {
       button.addEventListener("click", () => setLevel(button.dataset.level));
@@ -1177,10 +1284,19 @@ function bindBlankWorkspace(model) {
       button.addEventListener("click", () => selectResource(button.dataset.resource, true));
     });
 
-    moduleDetail.querySelectorAll("[data-tab]").forEach((button) => {
+    courseDetail.querySelectorAll("[data-course]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.selectedCourseId = button.dataset.course;
+        state.detailTab = "lesson";
+        render();
+        document.getElementById("lesson")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    courseDetail.querySelectorAll("[data-tab]").forEach((button) => {
       button.addEventListener("click", () => {
         state.detailTab = button.dataset.tab;
-        render();
+        updateTheoryCourseDetailTab(courseDetail, state.detailTab);
       });
     });
   }
@@ -1194,7 +1310,6 @@ function bindBlankWorkspace(model) {
 
   moduleFilter.addEventListener("change", (event) => {
     state.module = event.target.value;
-    state.detailTab = DETAIL_TABS[0];
     render();
   });
 

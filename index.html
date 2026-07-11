@@ -6,6 +6,7 @@
     <title>乐理教学助手</title>
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="./assets/styles.css" />
+    <script type="module" src="https://eddietsai6-code.github.io/audio-speed-player/dist/audio-speed-player-pro.js"></script>
   </head>
   <body>
     <main class="theory-site" data-app>
@@ -17,7 +18,7 @@
         <nav class="site-nav" aria-label="页面区块">
           <a href="#levels">阶段</a>
           <a href="#workbench">资源台</a>
-          <a href="#detail">详情</a>
+          <a href="#lesson">课时</a>
         </nav>
       </header>
 
@@ -86,10 +87,6 @@
         </div>
       </section>
 
-      <section class="section grade-course-picker-section" aria-label="Grade course picker">
-        <div id="levelSongPicker" class="level-song-picker" aria-live="polite" hidden></div>
-      </section>
-
       <section class="section levels-section" id="levels" aria-label="乐理学习阶段">
         <div class="section-heading">
           <p class="marker-caption">blank level path</p>
@@ -132,12 +129,13 @@
         <div id="resourceList" class="resource-label-grid" aria-live="polite"></div>
       </section>
 
-      <section class="section lesson-section" id="detail" aria-label="模块详情">
+      <section class="section lesson-section" id="lesson" aria-label="乐理课时详情">
         <div class="section-heading">
-          <p class="marker-caption">module detail</p>
-          <h2>课堂说明、练习步骤、资源位和测评位放在同一张卡里。</h2>
+          <p class="marker-caption">lesson page</p>
+          <h2>send one neat note after class.</h2>
+          <p>Each course becomes a reusable lesson page with goals, focus points, common issues, pass standards, playable audio, mapped score pages, and a live metronome.</p>
         </div>
-        <article id="moduleDetail" class="lesson-card" aria-live="polite"></article>
+        <article id="courseDetail" class="lesson-card" aria-live="polite"></article>
       </section>
     </main>
 
