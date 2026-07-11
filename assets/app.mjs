@@ -318,20 +318,350 @@ const GRADE_COURSE_ITEMS = {
       location: "综合问答与音乐语境练习",
     },
   ],
+  "grade-2": [
+    {
+      id: "course-01",
+      title: "音高",
+      category: "pitch",
+      role: "pitch",
+      location: "加线，以及高音谱号和低音谱号之间的音符改写",
+    },
+    {
+      id: "course-02",
+      title: "节奏（第一部分）",
+      category: "rhythm",
+      role: "rhythm",
+      location: "以二分音符和八分音符为拍的拍号，以及不同拍号中的节奏改写",
+    },
+    {
+      id: "course-03",
+      title: "节奏（第二部分）",
+      category: "rhythm",
+      role: "rhythm",
+      location: "三连音与附点休止符",
+    },
+    {
+      id: "course-04",
+      title: "节奏（第三部分）",
+      category: "rhythm",
+      role: "rhythm",
+      location: "音符和休止符的分组，以及跨多个拍子的音符分组",
+    },
+    {
+      id: "course-05",
+      title: "调性与音阶（第一部分）",
+      category: "scales",
+      role: "scales",
+      location: "A、降 B 和降 E 大调的调性与音阶",
+    },
+    {
+      id: "course-06",
+      title: "调性与音阶（第二部分）",
+      category: "scales",
+      role: "scales",
+      location: "关系大小调、和声小调，以及 A、E、D 和声小调",
+    },
+    {
+      id: "course-07",
+      title: "音程",
+      category: "intervals",
+      role: "intervals",
+      location: "A、降 B、降 E 大调，以及 A、E、D 小调中的音程",
+    },
+    {
+      id: "course-08",
+      title: "主三和弦",
+      category: "triads",
+      role: "triads",
+      location: "A、E、D 小调与 A、降 B、降 E 大调的主三和弦",
+    },
+    {
+      id: "course-09",
+      title: "术语和标记",
+      category: "terms",
+      role: "terms",
+      location: "第 2 级需要掌握的音乐术语和标记",
+    },
+    {
+      id: "course-10",
+      title: "综合音乐练习",
+      category: "music in context",
+      role: "music in context",
+      location: "第 2 级综合问答与音乐语境练习",
+    },
+  ],
+  "grade-3": [
+    {
+      id: "course-01",
+      title: "节奏（第一部分）",
+      category: "rhythm",
+      role: "rhythm",
+      location: "三十二分音符、弱起、二连音/三连音/四连音，以及音符与休止符分组",
+    },
+    {
+      id: "course-02",
+      title: "节奏（第二部分）",
+      category: "rhythm",
+      role: "rhythm",
+      location: "单拍子与复拍子、新拍号，以及复拍子中的音符和休止符分组",
+    },
+    {
+      id: "course-03",
+      title: "音高",
+      category: "pitch",
+      role: "pitch",
+      location: "三条加线上的音符，以及八度移调",
+    },
+    {
+      id: "course-04",
+      title: "调性与音阶（第一部分）",
+      category: "scales",
+      role: "scales",
+      location: "E 大调与降 A 大调",
+    },
+    {
+      id: "course-05",
+      title: "调性与音阶（第二部分）",
+      category: "scales",
+      role: "scales",
+      location: "旋律小调，以及 B、G、升 F、C、升 C、F 小调",
+    },
+    {
+      id: "course-06",
+      title: "音程",
+      category: "intervals",
+      role: "intervals",
+      location: "纯音程、大音程与小音程",
+    },
+    {
+      id: "course-07",
+      title: "主三和弦",
+      category: "triads",
+      role: "triads",
+      location: "最多四个升降号的大调与小调主三和弦",
+    },
+    {
+      id: "course-08",
+      title: "术语和标记",
+      category: "terms",
+      role: "terms",
+      location: "第 3 级需要掌握的音乐术语和标记",
+    },
+    {
+      id: "course-09",
+      title: "综合音乐练习",
+      category: "music in context",
+      role: "music in context",
+      location: "第 3 级综合问答与音乐语境练习",
+    },
+  ],
+  "grade-4": [
+    {
+      id: "course-01",
+      title: "节奏（第一部分）",
+      category: "rhythm",
+      role: "rhythm",
+      location: "倍全音符、倍全休止符、双附点音符与二连音",
+    },
+    {
+      id: "course-02",
+      title: "节奏（第二部分）",
+      category: "rhythm",
+      role: "rhythm",
+      location: "新的单拍子和复拍子，以及音符与休止符分组",
+    },
+    {
+      id: "course-03",
+      title: "音高",
+      category: "pitch",
+      role: "pitch",
+      location: "中音谱号、重升重降与等音",
+    },
+    {
+      id: "course-04",
+      title: "调性与音阶（第一部分）",
+      category: "scales",
+      role: "scales",
+      location: "音阶各级的技术名称，以及 B 大调与降 D 小调",
+    },
+    {
+      id: "course-05",
+      title: "调性与音阶（第二部分）",
+      category: "scales",
+      role: "scales",
+      location: "降 B 小调、升 G 小调与半音阶",
+    },
+    {
+      id: "course-06",
+      title: "音程",
+      category: "intervals",
+      role: "intervals",
+      location: "小二度、增音程与减音程",
+    },
+    {
+      id: "course-07",
+      title: "三和弦/和弦",
+      category: "triads",
+      role: "triads",
+      location: "主要三和弦，以及原位主要和弦",
+    },
+    {
+      id: "course-08",
+      title: "术语、标记与乐器（第一部分）",
+      category: "terms",
+      role: "terms",
+      location: "乐器家族、乐器音域、谱号与演奏指示",
+    },
+    {
+      id: "course-09",
+      title: "术语、标记与乐器（第二部分）",
+      category: "terms",
+      role: "terms",
+      location: "装饰音、新意大利语和法语术语、反复记号",
+    },
+    {
+      id: "course-10",
+      title: "综合音乐练习",
+      category: "music in context",
+      role: "music in context",
+      location: "第 4 级综合问答与音乐语境练习",
+    },
+  ],
+  "grade-5": [
+    {
+      id: "course-01",
+      title: "节奏",
+      category: "rhythm",
+      role: "rhythm",
+      location: "单拍子与复拍子的改写复习、不规则拍号、不规则拍号分组、五连音与六连音",
+    },
+    {
+      id: "course-02",
+      title: "音高（第一部分）",
+      category: "pitch",
+      role: "pitch",
+      location: "次中音谱号，以及不同谱号之间的八度移调",
+    },
+    {
+      id: "course-03",
+      title: "音高（第二部分）",
+      category: "pitch",
+      role: "pitch",
+      location: "按大二度、小三度和纯五度移调，寻找新调号，以及带临时记号的旋律移调",
+    },
+    {
+      id: "course-04",
+      title: "调性与音阶",
+      category: "scales",
+      role: "scales",
+      location: "升 F/降 G 大调、升 D/降 E 小调、五级乐理全部调性与五度圈",
+    },
+    {
+      id: "course-05",
+      title: "音程",
+      category: "intervals",
+      role: "intervals",
+      location: "有无调号的音程、半音音程与复音程",
+    },
+    {
+      id: "course-06",
+      title: "和弦",
+      category: "triads",
+      role: "triads",
+      location: "上主音和弦、终止式、为旋律选择合适和弦与转位",
+    },
+    {
+      id: "course-07",
+      title: "术语、标记与乐器（第一部分）",
+      category: "terms",
+      role: "terms",
+      location: "第 5 级新增乐器、移调乐器、声部类型与音域",
+    },
+    {
+      id: "course-08",
+      title: "术语、标记与乐器（第二部分）",
+      category: "terms",
+      role: "terms",
+      location: "写出的装饰音、新意大利语和德语术语、钢琴相关术语与标记",
+    },
+    {
+      id: "course-09",
+      title: "综合音乐练习",
+      category: "music in context",
+      role: "music in context",
+      location: "第 5 级综合问答与音乐语境练习",
+    },
+  ],
 };
 
 const GRADE_COURSE_PAGE_META = {
-  "course-01": { studentPages: [8, 14], answerPages: [2, 5], studentPageCount: 7, answerPageCount: 4 },
-  "course-02": { studentPages: [15, 19], answerPages: [6, 8], studentPageCount: 5, answerPageCount: 3 },
-  "course-03": { studentPages: [20, 25], answerPages: [8, 11], studentPageCount: 6, answerPageCount: 4 },
-  "course-04": { studentPages: [26, 30], answerPages: [12, 14], studentPageCount: 5, answerPageCount: 3 },
-  "course-05": { studentPages: [31, 35], answerPages: [14, 17], studentPageCount: 5, answerPageCount: 4 },
-  "course-06": { studentPages: [36, 41], answerPages: [18, 20], studentPageCount: 6, answerPageCount: 3 },
-  "course-07": { studentPages: [42, 46], answerPages: [21, 23], studentPageCount: 5, answerPageCount: 3 },
-  "course-08": { studentPages: [47, 50], answerPages: [24, 26], studentPageCount: 4, answerPageCount: 3 },
-  "course-09": { studentPages: [51, 52], answerPages: [26, 27], studentPageCount: 2, answerPageCount: 2 },
-  "course-10": { studentPages: [53, 57], answerPages: [27, 29], studentPageCount: 5, answerPageCount: 3 },
-  "course-11": { studentPages: [58, 61], answerPages: [29, 30], studentPageCount: 4, answerPageCount: 2 },
+  "grade-1": {
+    "course-01": { zhStudentPages: [8, 14], zhAnswerPages: [2, 5], enStudentPages: [5, 11], enAnswerPages: [5, 8] },
+    "course-02": { zhStudentPages: [15, 19], zhAnswerPages: [6, 8], enStudentPages: [12, 16], enAnswerPages: [9, 10] },
+    "course-03": { zhStudentPages: [20, 25], zhAnswerPages: [8, 11], enStudentPages: [17, 22], enAnswerPages: [11, 14] },
+    "course-04": { zhStudentPages: [26, 30], zhAnswerPages: [12, 14], enStudentPages: [23, 27], enAnswerPages: [15, 16] },
+    "course-05": { zhStudentPages: [31, 35], zhAnswerPages: [14, 17], enStudentPages: [28, 32], enAnswerPages: [17, 20] },
+    "course-06": { zhStudentPages: [36, 41], zhAnswerPages: [18, 20], enStudentPages: [33, 38], enAnswerPages: [21, 23] },
+    "course-07": { zhStudentPages: [42, 46], zhAnswerPages: [21, 23], enStudentPages: [39, 43], enAnswerPages: [24, 26] },
+    "course-08": { zhStudentPages: [47, 50], zhAnswerPages: [24, 26], enStudentPages: [44, 47], enAnswerPages: [27, 28] },
+    "course-09": { zhStudentPages: [51, 52], zhAnswerPages: [26, 27], enStudentPages: [48, 49], enAnswerPages: [29, 29] },
+    "course-10": { zhStudentPages: [53, 57], zhAnswerPages: [27, 29], enStudentPages: [50, 54], enAnswerPages: [30, 31] },
+    "course-11": { zhStudentPages: [58, 61], zhAnswerPages: [29, 30], enStudentPages: [55, 58], enAnswerPages: [32, 34] },
+  },
+  "grade-2": {
+    "course-01": { zhStudentPages: [8, 12], enStudentPages: [5, 9], enAnswerPages: [45, 47] },
+    "course-02": { zhStudentPages: [13, 21], enStudentPages: [10, 18], enAnswerPages: [48, 51] },
+    "course-03": { zhStudentPages: [22, 25], enStudentPages: [19, 22], enAnswerPages: [52, 54] },
+    "course-04": { zhStudentPages: [26, 30], enStudentPages: [23, 27], enAnswerPages: [55, 56] },
+    "course-05": { zhStudentPages: [31, 36], enStudentPages: [28, 33], enAnswerPages: [57, 59] },
+    "course-06": { zhStudentPages: [37, 41], enStudentPages: [34, 38], enAnswerPages: [60, 62] },
+    "course-07": { zhStudentPages: [42, 44], enStudentPages: [39, 41], enAnswerPages: [63, 64] },
+    "course-08": { zhStudentPages: [45, 46], enStudentPages: [42, 43], enAnswerPages: [65, 65] },
+    "course-09": { zhStudentPages: [47, 50], enStudentPages: [44, 47], enAnswerPages: [66, 67] },
+    "course-10": { zhStudentPages: [51, 55], enStudentPages: [48, 52], enAnswerPages: [68, 70] },
+  },
+  "grade-3": {
+    "course-01": { zhStudentPages: [8, 17], enStudentPages: [5, 14], enAnswerPages: [81, 86] },
+    "course-02": { zhStudentPages: [18, 25], enStudentPages: [15, 22], enAnswerPages: [87, 91] },
+    "course-03": { zhStudentPages: [26, 31], enStudentPages: [23, 28], enAnswerPages: [92, 95] },
+    "course-04": { zhStudentPages: [32, 35], enStudentPages: [29, 32], enAnswerPages: [96, 97] },
+    "course-05": { zhStudentPages: [36, 44], enStudentPages: [33, 41], enAnswerPages: [98, 103] },
+    "course-06": { zhStudentPages: [45, 48], enStudentPages: [42, 45], enAnswerPages: [104, 106] },
+    "course-07": { zhStudentPages: [49, 51], enStudentPages: [46, 48], enAnswerPages: [107, 108] },
+    "course-08": { zhStudentPages: [52, 55], enStudentPages: [49, 52], enAnswerPages: [109, 110] },
+    "course-09": { zhStudentPages: [56, 59], enStudentPages: [53, 56], enAnswerPages: [111, 112] },
+  },
+  "grade-4": {
+    "course-01": { zhStudentPages: [8, 14], enStudentPages: [5, 11], enAnswerPages: [123, 126] },
+    "course-02": { zhStudentPages: [15, 22], enStudentPages: [12, 19], enAnswerPages: [127, 132] },
+    "course-03": { zhStudentPages: [23, 30], enStudentPages: [20, 27], enAnswerPages: [133, 136] },
+    "course-04": { zhStudentPages: [31, 36], enStudentPages: [28, 33], enAnswerPages: [137, 140] },
+    "course-05": { zhStudentPages: [37, 45], enStudentPages: [34, 42], enAnswerPages: [141, 145] },
+    "course-06": { zhStudentPages: [46, 53], enStudentPages: [43, 50], enAnswerPages: [146, 150] },
+    "course-07": { zhStudentPages: [54, 60], enStudentPages: [51, 57], enAnswerPages: [151, 155] },
+    "course-08": { zhStudentPages: [61, 65], enStudentPages: [58, 62], enAnswerPages: [156, 156] },
+    "course-09": { zhStudentPages: [66, 70], enStudentPages: [63, 67], enAnswerPages: [157, 159] },
+    "course-10": { zhStudentPages: [71, 75], enStudentPages: [68, 72], enAnswerPages: [160, 162] },
+  },
+  "grade-5": {
+    "course-01": { zhStudentPages: [4, 12], enStudentPages: [5, 13], enAnswerPages: [175, 179] },
+    "course-02": { zhStudentPages: [13, 19], enStudentPages: [14, 20], enAnswerPages: [180, 182] },
+    "course-03": { zhStudentPages: [20, 29], enStudentPages: [21, 30], enAnswerPages: [183, 187] },
+    "course-04": { zhStudentPages: [30, 37], enStudentPages: [31, 38], enAnswerPages: [188, 191] },
+    "course-05": { zhStudentPages: [38, 46], enStudentPages: [39, 47], enAnswerPages: [192, 197] },
+    "course-06": { zhStudentPages: [47, 63], enStudentPages: [48, 64], enAnswerPages: [198, 206] },
+    "course-07": { zhStudentPages: [64, 70], enStudentPages: [65, 71], enAnswerPages: [207, 208] },
+    "course-08": { zhStudentPages: [71, 78], enStudentPages: [72, 79], enAnswerPages: [209, 212] },
+    "course-09": { zhStudentPages: [79, 87], enStudentPages: [80, 88], enAnswerPages: [213, 216] },
+  },
+};
+
+const ANSWER_BOOK_STARTS = {
+  "grade-1": { bodyStartPdfPage: 5, titles: ["Rhythm (Part 1)", "Pitch (Part 1)", "Rhythm (Part 2)", "Pitch (Part 2)", "Rhythm (Part 3)", "Scales", "Keys & Key Signatures", "Intervals", "Tonic Triads", "Terms & Signs", "Music in Context"], printedStarts: [1, 5, 7, 11, 13, 17, 20, 23, 25, 26, 28], practiceStart: 31 },
+  "grade-2": { bodyStartPdfPage: 45, titles: ["Pitch", "Rhythm (Part 1)", "Rhythm (Part 2)", "Rhythm (Part 3)", "Keys & Scales (Part 1)", "Keys & Scales (Part 2)", "Intervals", "Tonic Triads", "Terms & Signs", "Music in Context"], printedStarts: [1, 4, 8, 11, 13, 16, 19, 21, 22, 24], practiceStart: 27 },
+  "grade-3": { bodyStartPdfPage: 81, titles: ["Rhythm (Part 1)", "Rhythm (Part 2)", "Pitch", "Keys & Scales (Part 1)", "Keys & Scales (Part 2)", "Intervals", "Tonic Triads", "Terms & Signs", "Music in Context"], printedStarts: [1, 7, 12, 16, 18, 24, 27, 29, 31], practiceStart: 33 },
+  "grade-4": { bodyStartPdfPage: 123, titles: ["Rhythm (Part 1)", "Rhythm (Part 2)", "Pitch", "Keys & Scales (Part 1)", "Keys & Scales (Part 2)", "Intervals", "Triads/Chords", "Terms, Signs & Instruments (Part 1)", "Terms, Signs & Instruments (Part 2)", "Music in Context"], printedStarts: [1, 5, 11, 15, 19, 24, 29, 34, 35, 38], practiceStart: 41 },
+  "grade-5": { bodyStartPdfPage: 175, titles: ["Rhythm", "Pitch (Part 1)", "Pitch (Part 2)", "Keys & Scales", "Intervals", "Chords", "Terms, Signs & Instruments (Part 1)", "Terms, Signs & Instruments (Part 2)", "Music in Context"], printedStarts: [1, 6, 9, 14, 18, 24, 33, 35, 39], practiceStart: 43 },
 };
 
 const COURSE_ACCENTS = {
@@ -350,32 +680,81 @@ function numberedPageName(kind, pageNumber) {
   return `${kind}-page-${String(pageNumber).padStart(2, "0")}.webp`;
 }
 
-function makeScorePages(item, section, count, sourceRange) {
+function pageCountFromRange(range) {
+  return Array.isArray(range) ? range[1] - range[0] + 1 : 0;
+}
+
+function pageRangeLabel(range) {
+  return Array.isArray(range) ? `${range[0]}-${range[1]}` : "pending";
+}
+
+function gradeNumber(gradeId) {
+  return Number(String(gradeId).replace("grade-", "")) || 1;
+}
+
+function gradeTitle(gradeId) {
+  return `Grade ${gradeNumber(gradeId)}`;
+}
+
+function answerBasePathFor(gradeId) {
+  return `${gradeId}-answers-original`;
+}
+
+function getCoursePageMeta(gradeId, courseId) {
+  return GRADE_COURSE_PAGE_META[gradeId]?.[courseId] || {};
+}
+
+function makeScorePages(item, section, sourceRange, basePath) {
+  const count = pageCountFromRange(sourceRange);
   return Array.from({ length: count }, (_, index) => {
     const pageNumber = index + 1;
     const sourcePage = Array.isArray(sourceRange) ? sourceRange[0] + index : pageNumber;
+    const fileKind = section.fileKind || section.kind;
     return {
       kind: section.kind,
       sectionLabel: section.label,
       pageNumber,
       sourcePage,
       title: `${item.title} · ${section.label} ${pageNumber}`,
-      src: `./assets/scores/grade-1/${item.id}/${numberedPageName(section.kind, pageNumber)}`,
+      src: `./assets/scores/${basePath}/${item.id}/${numberedPageName(fileKind, pageNumber)}`,
     };
   });
 }
 
-function makeScoreSection(item, section, count, sourceRange) {
-  const pages = makeScorePages(item, section, count, sourceRange);
-  const rangeLabel = Array.isArray(sourceRange) ? `${sourceRange[0]}-${sourceRange[1]}` : "pending";
+function makeScoreSection(item, section, sourceRange, basePath) {
+  const pages = makeScorePages(item, section, sourceRange, basePath);
 
   return {
     ...section,
-    pageCount: count,
-    sourcePageRange: rangeLabel,
+    pageCount: pages.length,
+    sourcePageRange: pageRangeLabel(sourceRange),
     pages,
   };
 }
+
+function buildAnswerBookGrade([gradeId, config]) {
+  const pdfOffset = config.bodyStartPdfPage - 1;
+  const courses = config.printedStarts.map((start, index) => {
+    const end = (config.printedStarts[index + 1] || config.practiceStart) - 1;
+    return {
+      id: `course-${String(index + 1).padStart(2, "0")}`,
+      title: config.titles[index],
+      printedPages: [start, end],
+      pdfPages: [start + pdfOffset, end + pdfOffset],
+      pageCount: end - start + 1,
+    };
+  });
+
+  return {
+    gradeId,
+    label: gradeTitle(gradeId),
+    bodyStartPdfPage: config.bodyStartPdfPage,
+    courseCount: courses.length,
+    courses,
+  };
+}
+
+const ANSWER_BOOK_REFERENCE_INDEX = Object.entries(ANSWER_BOOK_STARTS).map(buildAnswerBookGrade);
 
 export function createBlankTheoryWorkspace() {
   const levels = THEORY_LEVELS.map((level) => ({
@@ -496,39 +875,97 @@ export function getTheoryCourseDetail(courseId = "course-01", gradeId = "grade-1
   return courses.find((course) => course.id === courseId) || courses[0] || null;
 }
 
+export function getAnswerBookReferenceIndex() {
+  return ANSWER_BOOK_REFERENCE_INDEX.map((grade) => ({
+    ...grade,
+    courses: grade.courses.map((course) => ({ ...course })),
+  }));
+}
+
 function hydrateTheoryCourse(item, gradeId) {
-  const meta = GRADE_COURSE_PAGE_META[item.id] || {};
+  const meta = getCoursePageMeta(gradeId, item.id);
   const accent = COURSE_ACCENTS[item.category] || "#24a148";
-  const scoreSections = [
+  const gradeLabel = gradeTitle(gradeId);
+  const zhAnswerPages = meta.zhAnswerPages || meta.enAnswerPages;
+  const zhAnswerBasePath = meta.zhAnswerPages ? gradeId : answerBasePathFor(gradeId);
+  const answerBasePath = answerBasePathFor(gradeId);
+  const zhSections = [
     makeScoreSection(
       item,
-      { kind: "student", label: "Student", title: "学生资料", description: "课堂讲解、例题、练习与阶段回顾" },
-      meta.studentPageCount || 0,
-      meta.studentPages,
+      { kind: "student", label: "Student", title: "中文学生资料", description: "中文学生册课堂讲解、例题、练习与阶段回顾" },
+      meta.zhStudentPages,
+      gradeId,
     ),
     makeScoreSection(
       item,
       { kind: "answers", label: "Answers", title: "答案资料", description: "对应练习的核对页与订正参考" },
-      meta.answerPageCount || 0,
-      meta.answerPages,
+      zhAnswerPages,
+      zhAnswerBasePath,
     ),
   ];
+  const enSections = [
+    makeScoreSection(
+      item,
+      { kind: "student", label: "Student", title: "English original", description: "原版英文学生册页面，用来和中文整理版核对" },
+      meta.enStudentPages,
+      `${gradeId}-original`,
+    ),
+    makeScoreSection(
+      item,
+      { kind: "answers", label: "Answers", title: "Answer book original", description: "1-5 级总答案册中的对应答案页" },
+      meta.enAnswerPages,
+      answerBasePath,
+    ),
+  ];
+  const scoreSources = [
+    {
+      id: "zh",
+      label: "中文整理版",
+      shortLabel: "ZH",
+      description: "中文学生册为默认阅读材料；答案页按总答案册映射到本课。",
+      sections: zhSections,
+      pages: zhSections.flatMap((section) => section.pages),
+      totalPages: zhSections.reduce((sum, section) => sum + section.pageCount, 0),
+      pageLabel: `中文学生 ${pageRangeLabel(meta.zhStudentPages)} · 答案 ${pageRangeLabel(zhAnswerPages)}`,
+    },
+    {
+      id: "en",
+      label: "English original",
+      shortLabel: "EN",
+      description: "英文原版学生册和答案册，作为中文版本的核对来源。",
+      sections: enSections,
+      pages: enSections.flatMap((section) => section.pages),
+      totalPages: enSections.reduce((sum, section) => sum + section.pageCount, 0),
+      pageLabel: `Original student ${pageRangeLabel(meta.enStudentPages)} · answers ${pageRangeLabel(meta.enAnswerPages)}`,
+    },
+    {
+      id: "compare",
+      label: "中英对照",
+      shortLabel: "A/B",
+      description: "中文学生页与英文原版页按同课顺序并排，方便逐页校对和后续中文化整理。",
+      sections: [],
+      pages: [],
+      totalPages: Math.max(pageCountFromRange(meta.zhStudentPages), pageCountFromRange(meta.enStudentPages)),
+      pageLabel: `中文 ${pageRangeLabel(meta.zhStudentPages)} ↔ English ${pageRangeLabel(meta.enStudentPages)}`,
+    },
+  ];
+  const scoreSections = zhSections;
   const pageLabel =
-    meta.studentPages && meta.answerPages
-      ? `Student ${meta.studentPages[0]}-${meta.studentPages[1]} · Answers ${meta.answerPages[0]}-${meta.answerPages[1]}`
+    meta.zhStudentPages && zhAnswerPages
+      ? `Student ${meta.zhStudentPages[0]}-${meta.zhStudentPages[1]} · Answers ${zhAnswerPages[0]}-${zhAnswerPages[1]}`
       : "Pages pending";
 
   return {
     ...item,
     gradeId,
-    classLabel: "Grade 1",
-    source: "Discover Theory Grade 1",
+    classLabel: gradeLabel,
+    source: `Discover Theory ${gradeLabel}`,
     artist: "ABRSM Discovering Music Theory",
     type: "Theory Course",
     style: item.role,
     accent,
     pageLabel,
-    tags: [item.category, "Grade 1", "score preview"],
+    tags: [item.category, gradeLabel, "score preview"],
     tabs: COURSE_TABS,
     teaching: {
       goal: `掌握${item.location}，能在谱面中准确识别并完成基础练习。`,
@@ -544,10 +981,11 @@ function hydrateTheoryCourse(item, gradeId) {
         src: "",
       },
     ],
+    scoreSources,
     scoreSections,
     scoreImages: scoreSections.flatMap((section) => section.pages),
     scoreTotalPages: scoreSections.reduce((sum, section) => sum + section.pageCount, 0),
-    scoreNote: meta.notes || "本课 student/answers 已按原 PDF 页组完整映射。",
+    scoreNote: meta.notes || "本课中文、英文原版和答案册页组已按 PDF 目录完整映射。",
   };
 }
 
@@ -628,6 +1066,23 @@ function renderCoverGallery(root, items) {
         )
         .join("")}
     </div>
+    <nav class="grade-quick-switch" aria-label="Theory grade switch">
+      ${items
+        .map(
+          (item, index) => `
+            <button
+              type="button"
+              class="${index === 0 ? "is-active" : ""}"
+              data-grade-select="${escapeHtml(item.gradeId || "")}"
+              data-index="${index}"
+            >
+              <span>${escapeHtml(item.title)}</span>
+              <small>${escapeHtml(item.tags[0] || "theory")}</small>
+            </button>
+          `,
+        )
+        .join("")}
+    </nav>
   `;
 }
 
@@ -637,6 +1092,7 @@ function bindCoverGallery(root, items, onSelectGrade) {
   renderCoverGallery(root, items);
 
   const cards = [...root.querySelectorAll("[data-gallery-card]")];
+  const quickButtons = [...root.querySelectorAll("[data-grade-select]")];
   const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
   const state = {
     current: 0,
@@ -709,10 +1165,17 @@ function bindCoverGallery(root, items, onSelectGrade) {
     requestLayout();
   }
 
+  function setActiveGrade(index) {
+    quickButtons.forEach((button) => {
+      button.classList.toggle("is-active", Number(button.dataset.index || 0) === index);
+    });
+  }
+
   function selectCard(card) {
     const index = Number(card.dataset.index || 0);
     state.target = index;
     snapTarget();
+    setActiveGrade(index);
     onSelectGrade?.(items[index]);
   }
 
@@ -721,6 +1184,13 @@ function bindCoverGallery(root, items, onSelectGrade) {
       if (event.key !== "Enter" && event.key !== " ") return;
       event.preventDefault();
       selectCard(card);
+    });
+  });
+
+  quickButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.index || 0);
+      selectCard(cards[index]);
     });
   });
 
@@ -1096,20 +1566,38 @@ function renderTheoryCourseAudio(course) {
   `;
 }
 
-function renderTheoryCourseScores(course) {
+function renderReaderPage(course, sourceId, section, page, loading = "eager") {
+  const figureId = `${course.gradeId}-${course.id}-${sourceId}-${page.kind}-${page.pageNumber}`;
   return `
-    <div class="material-reader" data-score-reader>
+    <figure class="reader-page score-image-frame" id="${escapeHtml(figureId)}">
+      <figcaption>
+        <span>${escapeHtml(page.sectionLabel)} ${String(page.pageNumber).padStart(2, "0")}</span>
+        <em>source p.${escapeHtml(page.sourcePage)}</em>
+      </figcaption>
+      <img src="${escapeHtml(page.src)}" alt="${escapeHtml(page.title)}" loading="${loading}" decoding="async" />
+    </figure>
+  `;
+}
+
+function renderReaderSourcePanel(course, source, activeSourceId) {
+  const isActive = source.id === activeSourceId;
+  return `
+    <div
+      class="reader-source-panel ${isActive ? "is-active" : ""}"
+      data-score-source-panel="${escapeHtml(source.id)}"
+      ${isActive ? "" : "hidden"}
+    >
       <div class="reader-toolbar">
         <div>
-          <span>digital lesson pack</span>
-          <strong>${escapeHtml(course.title)}</strong>
-          <em>${escapeHtml(course.scoreTotalPages)} pages · ${escapeHtml(course.pageLabel)}</em>
+          <span>${escapeHtml(source.shortLabel)} source</span>
+          <strong>${escapeHtml(source.label)}</strong>
+          <em>${escapeHtml(source.totalPages)} pages · ${escapeHtml(source.pageLabel)}</em>
         </div>
-        <nav class="reader-section-toggle" aria-label="Score sections">
-          ${course.scoreSections
+        <nav class="reader-section-toggle" aria-label="${escapeHtml(source.label)} sections">
+          ${source.sections
             .map(
               (section) => `
-                <a href="#${escapeHtml(course.id)}-${escapeHtml(section.kind)}">
+                <a href="#${escapeHtml(course.gradeId)}-${escapeHtml(course.id)}-${escapeHtml(source.id)}-${escapeHtml(section.kind)}">
                   <b>${escapeHtml(section.label)}</b>
                   <small>${escapeHtml(section.pageCount)} pages</small>
                 </a>
@@ -1118,12 +1606,12 @@ function renderTheoryCourseScores(course) {
             .join("")}
         </nav>
       </div>
-      <div class="reader-page-strip" aria-label="${escapeHtml(course.title)} page index">
-        ${course.scoreSections
+      <div class="reader-page-strip" aria-label="${escapeHtml(course.title)} ${escapeHtml(source.label)} page index">
+        ${source.sections
           .flatMap((section) =>
             section.pages.map(
               (page) => `
-                <a class="reader-page-thumb" href="#${escapeHtml(course.id)}-${escapeHtml(page.kind)}-${page.pageNumber}">
+                <a class="reader-page-thumb" href="#${escapeHtml(course.gradeId)}-${escapeHtml(course.id)}-${escapeHtml(source.id)}-${escapeHtml(page.kind)}-${page.pageNumber}">
                   <span>${String(page.pageNumber).padStart(2, "0")}</span>
                   <small>${escapeHtml(section.label)}</small>
                 </a>
@@ -1134,13 +1622,13 @@ function renderTheoryCourseScores(course) {
       </div>
       <div class="reader-note">
         <span>source map</span>
-        <strong>${escapeHtml(course.scoreNote)}</strong>
+        <strong>${escapeHtml(source.description)}</strong>
       </div>
       <div class="reader-spread">
-        ${course.scoreSections
+        ${source.sections
           .map(
             (section) => `
-              <section class="reader-section" id="${escapeHtml(course.id)}-${escapeHtml(section.kind)}">
+              <section class="reader-section" id="${escapeHtml(course.gradeId)}-${escapeHtml(course.id)}-${escapeHtml(source.id)}-${escapeHtml(section.kind)}">
                 <header class="reader-section-head">
                   <div>
                     <span>${escapeHtml(section.label)}</span>
@@ -1150,20 +1638,150 @@ function renderTheoryCourseScores(course) {
                   <b>${escapeHtml(section.pageCount)} pages</b>
                 </header>
                 ${section.pages
-                  .map(
-                    (page) => `
-                      <figure class="reader-page score-image-frame" id="${escapeHtml(course.id)}-${escapeHtml(page.kind)}-${page.pageNumber}">
-                        <figcaption>
-                          <span>${escapeHtml(page.sectionLabel)} ${String(page.pageNumber).padStart(2, "0")}</span>
-                          <em>source p.${escapeHtml(page.sourcePage)}</em>
-                        </figcaption>
-                        <img src="${escapeHtml(page.src)}" alt="${escapeHtml(page.title)}" loading="eager" decoding="async" />
-                      </figure>
-                    `,
-                  )
+                  .map((page) => renderReaderPage(course, source.id, section, page, isActive ? "eager" : "lazy"))
                   .join("")}
               </section>
             `,
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
+function sectionByKind(source, kind) {
+  return source.sections.find((section) => section.kind === kind) || { pages: [] };
+}
+
+function renderComparePageCard(course, sourceId, section, page, label) {
+  if (!page) {
+    return `
+      <div class="reader-compare-empty">
+        <span>${escapeHtml(label)}</span>
+        <strong>本侧无对应页</strong>
+      </div>
+    `;
+  }
+
+  return `
+    <figure class="reader-compare-page score-image-frame">
+      <figcaption>
+        <span>${escapeHtml(label)} ${String(page.pageNumber).padStart(2, "0")}</span>
+        <em>source p.${escapeHtml(page.sourcePage)}</em>
+      </figcaption>
+      <img src="${escapeHtml(page.src)}" alt="${escapeHtml(course.title)} ${escapeHtml(label)} ${escapeHtml(page.pageNumber)}" loading="lazy" decoding="async" />
+    </figure>
+  `;
+}
+
+function renderCompareSourcePanel(course, source, activeSourceId) {
+  const zhSource = course.scoreSources.find((item) => item.id === "zh");
+  const enSource = course.scoreSources.find((item) => item.id === "en");
+  const zhStudent = sectionByKind(zhSource, "student");
+  const enStudent = sectionByKind(enSource, "student");
+  const answerSection = sectionByKind(enSource, "answers");
+  const pairCount = Math.max(zhStudent.pages.length, enStudent.pages.length);
+  const isActive = source.id === activeSourceId;
+
+  return `
+    <div
+      class="reader-source-panel ${isActive ? "is-active" : ""}"
+      data-score-source-panel="${escapeHtml(source.id)}"
+      ${isActive ? "" : "hidden"}
+    >
+      <div class="reader-toolbar">
+        <div>
+          <span>${escapeHtml(source.shortLabel)} source</span>
+          <strong>${escapeHtml(source.label)}</strong>
+          <em>${escapeHtml(pairCount)} pairs · ${escapeHtml(source.pageLabel)}</em>
+        </div>
+        <nav class="reader-section-toggle" aria-label="Compare sections">
+          <a href="#${escapeHtml(course.gradeId)}-${escapeHtml(course.id)}-compare-student">
+            <b>Student</b>
+            <small>${escapeHtml(pairCount)} pairs</small>
+          </a>
+          <a href="#${escapeHtml(course.gradeId)}-${escapeHtml(course.id)}-compare-answers">
+            <b>Answers</b>
+            <small>${escapeHtml(answerSection.pages.length)} pages</small>
+          </a>
+        </nav>
+      </div>
+      <div class="reader-note">
+        <span>compare mode</span>
+        <strong>${escapeHtml(source.description)}</strong>
+      </div>
+      <section class="reader-section" id="${escapeHtml(course.gradeId)}-${escapeHtml(course.id)}-compare-student">
+        <header class="reader-section-head">
+          <div>
+            <span>Student</span>
+            <strong>中文 / English side by side</strong>
+            <em>中文 PDF pages ${escapeHtml(zhStudent.sourcePageRange || "pending")} · English PDF pages ${escapeHtml(enStudent.sourcePageRange || "pending")}</em>
+          </div>
+          <b>${escapeHtml(pairCount)} pairs</b>
+        </header>
+        <div class="reader-compare-stack">
+          ${Array.from({ length: pairCount }, (_, index) => {
+            const zhPage = zhStudent.pages[index];
+            const enPage = enStudent.pages[index];
+            return `
+              <article class="reader-compare-pair">
+                ${renderComparePageCard(course, "zh", zhStudent, zhPage, "中文")}
+                ${renderComparePageCard(course, "en", enStudent, enPage, "English")}
+              </article>
+            `;
+          }).join("")}
+        </div>
+      </section>
+      <section class="reader-section" id="${escapeHtml(course.gradeId)}-${escapeHtml(course.id)}-compare-answers">
+        <header class="reader-section-head">
+          <div>
+            <span>Answers</span>
+            <strong>答案册原版索引</strong>
+            <em>PDF pages ${escapeHtml(answerSection.sourcePageRange || "pending")} · 后续中文化时以这里为核对底稿</em>
+          </div>
+          <b>${escapeHtml(answerSection.pages.length)} pages</b>
+        </header>
+        <div class="reader-spread">
+          ${answerSection.pages.map((page) => renderReaderPage(course, "compare", answerSection, page, isActive ? "eager" : "lazy")).join("")}
+        </div>
+      </section>
+    </div>
+  `;
+}
+
+function renderTheoryCourseScores(course, activeSourceId = "zh") {
+  const safeActiveSource = course.scoreSources.some((source) => source.id === activeSourceId) ? activeSourceId : "zh";
+  return `
+    <div class="material-reader" data-score-reader>
+      <div class="reader-source-head">
+        <div>
+          <span>digital lesson pack</span>
+          <strong>${escapeHtml(course.title)}</strong>
+          <em>${escapeHtml(course.source)} · ${escapeHtml(course.scoreNote)}</em>
+        </div>
+        <nav class="reader-source-switch" aria-label="Material source">
+          ${course.scoreSources
+            .map(
+              (source) => `
+                <button
+                  type="button"
+                  class="${source.id === safeActiveSource ? "is-active" : ""}"
+                  data-score-source="${escapeHtml(source.id)}"
+                >
+                  <b>${escapeHtml(source.label)}</b>
+                  <small>${escapeHtml(source.totalPages)} pages</small>
+                </button>
+              `,
+            )
+            .join("")}
+        </nav>
+      </div>
+      <div class="reader-source-panels">
+        ${course.scoreSources
+          .map((source) =>
+            source.id === "compare"
+              ? renderCompareSourcePanel(course, source, safeActiveSource)
+              : renderReaderSourcePanel(course, source, safeActiveSource),
           )
           .join("")}
       </div>
@@ -1185,14 +1803,14 @@ function renderTheoryCourseMetro() {
   `;
 }
 
-function renderCourseTabPane(course, tab) {
+function renderCourseTabPane(course, tab, activeScoreSource = "zh") {
   if (tab === "audio") return renderTheoryCourseAudio(course);
-  if (tab === "score") return renderTheoryCourseScores(course);
+  if (tab === "score") return renderTheoryCourseScores(course, activeScoreSource);
   if (tab === "metro") return renderTheoryCourseMetro();
   return renderTheoryCourseLesson(course);
 }
 
-function renderTheoryCourseDetail(course, courses, activeTab) {
+function renderTheoryCourseDetail(course, courses, activeTab, activeScoreSource = "zh") {
   if (!course) {
     return `<div class="empty-note"><strong>Grade material pending</strong><span>选择 Grade 1 可以查看已拆分的 11 个课时。</span></div>`;
   }
@@ -1220,10 +1838,10 @@ function renderTheoryCourseDetail(course, courses, activeTab) {
           .join("")}
       </div>
       <div class="lesson-content-stack" data-content-stack>
-        <div class="lesson-pane" data-tab-panel="lesson" ${activeTab === "lesson" ? "" : "hidden"}>${renderCourseTabPane(course, "lesson")}</div>
-        <div class="lesson-pane lesson-audio-pane" data-tab-panel="audio" ${activeTab === "audio" ? "" : "hidden"}>${renderCourseTabPane(course, "audio")}</div>
-        <div class="lesson-pane" data-tab-panel="score" ${activeTab === "score" ? "" : "hidden"}>${renderCourseTabPane(course, "score")}</div>
-        <div class="lesson-pane lesson-metronome-pane ${activeTab === "metro" ? "" : "is-parked"}" data-tab-panel="metro">${renderCourseTabPane(course, "metro")}</div>
+        <div class="lesson-pane" data-tab-panel="lesson" ${activeTab === "lesson" ? "" : "hidden"}>${renderCourseTabPane(course, "lesson", activeScoreSource)}</div>
+        <div class="lesson-pane lesson-audio-pane" data-tab-panel="audio" ${activeTab === "audio" ? "" : "hidden"}>${renderCourseTabPane(course, "audio", activeScoreSource)}</div>
+        <div class="lesson-pane" data-tab-panel="score" ${activeTab === "score" ? "" : "hidden"}>${renderCourseTabPane(course, "score", activeScoreSource)}</div>
+        <div class="lesson-pane lesson-metronome-pane ${activeTab === "metro" ? "" : "is-parked"}" data-tab-panel="metro">${renderCourseTabPane(course, "metro", activeScoreSource)}</div>
       </div>
     </div>
   `;
@@ -1242,6 +1860,18 @@ function updateTheoryCourseDetailTab(root, activeTab) {
     } else {
       panel.hidden = !isActive;
     }
+  });
+}
+
+function updateScoreSource(root, activeSourceId) {
+  root.querySelectorAll("[data-score-source]").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.scoreSource === activeSourceId);
+  });
+
+  root.querySelectorAll("[data-score-source-panel]").forEach((panel) => {
+    const isActive = panel.dataset.scoreSourcePanel === activeSourceId;
+    panel.hidden = !isActive;
+    panel.classList.toggle("is-active", isActive);
   });
 }
 
@@ -1286,6 +1916,7 @@ function bindBlankWorkspace(model) {
     selectedGradeId: "grade-1",
     selectedCourseId: "course-01",
     detailTab: "lesson",
+    scoreSource: "zh",
   };
 
   bindCoverGallery(coverGallery, getTheoryCoverGalleryItems(), (grade) => {
@@ -1293,6 +1924,7 @@ function bindBlankWorkspace(model) {
     state.selectedGradeId = grade.gradeId;
     state.selectedCourseId = courses[0]?.id || "";
     state.detailTab = "lesson";
+    state.scoreSource = "zh";
     render();
     document.getElementById("lesson")?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
@@ -1340,6 +1972,7 @@ function bindBlankWorkspace(model) {
     if (!courses.some((course) => course.id === state.selectedCourseId)) {
       state.selectedCourseId = courses[0]?.id || "";
       state.detailTab = "lesson";
+      state.scoreSource = "zh";
     }
     const selectedCourse = getTheoryCourseDetail(state.selectedCourseId, state.selectedGradeId);
     const summaryParts = [];
@@ -1358,7 +1991,7 @@ function bindBlankWorkspace(model) {
     activeSummary.textContent = summaryParts.length ? summaryParts.join(" · ") : "全部空白资源位";
     tagCloud.innerHTML = renderTagCloud(model, result.resources);
     resourceList.innerHTML = renderResourceList(model, result.resources, state.selectedResourceId);
-    courseDetail.innerHTML = renderTheoryCourseDetail(selectedCourse, courses, state.detailTab);
+    courseDetail.innerHTML = renderTheoryCourseDetail(selectedCourse, courses, state.detailTab, state.scoreSource);
 
     levelBoard.querySelectorAll("[data-level]").forEach((button) => {
       button.addEventListener("click", () => setLevel(button.dataset.level));
@@ -1376,6 +2009,7 @@ function bindBlankWorkspace(model) {
       button.addEventListener("click", () => {
         state.selectedCourseId = button.dataset.course;
         state.detailTab = "lesson";
+        state.scoreSource = "zh";
         render();
         document.getElementById("lesson")?.scrollIntoView({ behavior: "smooth", block: "start" });
       });
@@ -1385,6 +2019,13 @@ function bindBlankWorkspace(model) {
       button.addEventListener("click", () => {
         state.detailTab = button.dataset.tab;
         updateTheoryCourseDetailTab(courseDetail, state.detailTab);
+      });
+    });
+
+    courseDetail.querySelectorAll("[data-score-source]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.scoreSource = button.dataset.scoreSource;
+        updateScoreSource(courseDetail, state.scoreSource);
       });
     });
   }
