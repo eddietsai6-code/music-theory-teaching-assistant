@@ -1872,6 +1872,11 @@ function updateScoreSource(root, activeSourceId) {
     const isActive = panel.dataset.scoreSourcePanel === activeSourceId;
     panel.hidden = !isActive;
     panel.classList.toggle("is-active", isActive);
+    if (isActive) {
+      panel.querySelectorAll('img[loading="lazy"]').forEach((image) => {
+        image.loading = "eager";
+      });
+    }
   });
 }
 
