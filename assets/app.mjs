@@ -1157,7 +1157,7 @@ function renderTheoryCourseScores(course) {
                           <span>${escapeHtml(page.sectionLabel)} ${String(page.pageNumber).padStart(2, "0")}</span>
                           <em>source p.${escapeHtml(page.sourcePage)}</em>
                         </figcaption>
-                        <img src="${escapeHtml(page.src)}" alt="${escapeHtml(page.title)}" loading="${page.pageNumber === 1 ? "eager" : "lazy"}" decoding="async" />
+                        <img src="${escapeHtml(page.src)}" alt="${escapeHtml(page.title)}" loading="eager" decoding="async" />
                       </figure>
                     `,
                   )
