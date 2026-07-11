@@ -4,6 +4,7 @@
   "description": "Static music theory teaching workspace.",
   "type": "module",
   "scripts": {
+    "build": "node scripts/build-static.mjs",
     "test": "node --check assets/app.mjs"
   },
   "repository": {

@@ -32,4 +32,14 @@ assets/
 npm test
 ```
 
-The site is plain HTML, CSS, and JavaScript. No build step is required.
+## Cloudflare Pages
+
+Use these build settings:
+
+```text
+Production branch: main
+Build command: npm run build
+Build output directory: dist
+```
+
+The site is plain HTML, CSS, and JavaScript. The build step copies the static files into `dist/` for Cloudflare Pages.
