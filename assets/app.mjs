@@ -346,6 +346,37 @@ const COURSE_ACCENTS = {
   "music in context": "#f97316",
 };
 
+function numberedPageName(kind, pageNumber) {
+  return `${kind}-page-${String(pageNumber).padStart(2, "0")}.webp`;
+}
+
+function makeScorePages(item, section, count, sourceRange) {
+  return Array.from({ length: count }, (_, index) => {
+    const pageNumber = index + 1;
+    const sourcePage = Array.isArray(sourceRange) ? sourceRange[0] + index : pageNumber;
+    return {
+      kind: section.kind,
+      sectionLabel: section.label,
+      pageNumber,
+      sourcePage,
+      title: `${item.title} · ${section.label} ${pageNumber}`,
+      src: `./assets/scores/grade-1/${item.id}/${numberedPageName(section.kind, pageNumber)}`,
+    };
+  });
+}
+
+function makeScoreSection(item, section, count, sourceRange) {
+  const pages = makeScorePages(item, section, count, sourceRange);
+  const rangeLabel = Array.isArray(sourceRange) ? `${sourceRange[0]}-${sourceRange[1]}` : "pending";
+
+  return {
+    ...section,
+    pageCount: count,
+    sourcePageRange: rangeLabel,
+    pages,
+  };
+}
+
 export function createBlankTheoryWorkspace() {
   const levels = THEORY_LEVELS.map((level) => ({
     ...level,
@@ -468,6 +499,20 @@ export function getTheoryCourseDetail(courseId = "course-01", gradeId = "grade-1
 function hydrateTheoryCourse(item, gradeId) {
   const meta = GRADE_COURSE_PAGE_META[item.id] || {};
   const accent = COURSE_ACCENTS[item.category] || "#24a148";
+  const scoreSections = [
+    makeScoreSection(
+      item,
+      { kind: "student", label: "Student", title: "学生资料", description: "课堂讲解、例题、练习与阶段回顾" },
+      meta.studentPageCount || 0,
+      meta.studentPages,
+    ),
+    makeScoreSection(
+      item,
+      { kind: "answers", label: "Answers", title: "答案资料", description: "对应练习的核对页与订正参考" },
+      meta.answerPageCount || 0,
+      meta.answerPages,
+    ),
+  ];
   const pageLabel =
     meta.studentPages && meta.answerPages
       ? `Student ${meta.studentPages[0]}-${meta.studentPages[1]} · Answers ${meta.answerPages[0]}-${meta.answerPages[1]}`
@@ -499,20 +544,10 @@ function hydrateTheoryCourse(item, gradeId) {
         src: "",
       },
     ],
-    scoreImages: [
-      {
-        kind: "student",
-        title: `${item.title} · 学生页预览`,
-        src: `./assets/scores/grade-1/${item.id}/student-page-01.webp`,
-        pageCount: meta.studentPageCount || 0,
-      },
-      {
-        kind: "answers",
-        title: `${item.title} · 答案页预览`,
-        src: `./assets/scores/grade-1/${item.id}/answers-page-01.webp`,
-        pageCount: meta.answerPageCount || 0,
-      },
-    ],
+    scoreSections,
+    scoreImages: scoreSections.flatMap((section) => section.pages),
+    scoreTotalPages: scoreSections.reduce((sum, section) => sum + section.pageCount, 0),
+    scoreNote: meta.notes || "本课 student/answers 已按原 PDF 页组完整映射。",
   };
 }
 
@@ -1063,22 +1098,75 @@ function renderTheoryCourseAudio(course) {
 
 function renderTheoryCourseScores(course) {
   return `
-    <div class="score-grid">
-      ${course.scoreImages
-        .map(
-          (item) => `
-            <figure class="score-card score-sheet">
-              <div class="score-image-frame">
-                <img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.title)}" loading="eager" decoding="async" />
-              </div>
-              <figcaption>
-                <strong>${escapeHtml(item.kind)}</strong>
-                <span>${escapeHtml(item.pageCount)} pages mapped</span>
-              </figcaption>
-            </figure>
-          `,
-        )
-        .join("")}
+    <div class="material-reader" data-score-reader>
+      <div class="reader-toolbar">
+        <div>
+          <span>digital lesson pack</span>
+          <strong>${escapeHtml(course.title)}</strong>
+          <em>${escapeHtml(course.scoreTotalPages)} pages · ${escapeHtml(course.pageLabel)}</em>
+        </div>
+        <nav class="reader-section-toggle" aria-label="Score sections">
+          ${course.scoreSections
+            .map(
+              (section) => `
+                <a href="#${escapeHtml(course.id)}-${escapeHtml(section.kind)}">
+                  <b>${escapeHtml(section.label)}</b>
+                  <small>${escapeHtml(section.pageCount)} pages</small>
+                </a>
+              `,
+            )
+            .join("")}
+        </nav>
+      </div>
+      <div class="reader-page-strip" aria-label="${escapeHtml(course.title)} page index">
+        ${course.scoreSections
+          .flatMap((section) =>
+            section.pages.map(
+              (page) => `
+                <a class="reader-page-thumb" href="#${escapeHtml(course.id)}-${escapeHtml(page.kind)}-${page.pageNumber}">
+                  <span>${String(page.pageNumber).padStart(2, "0")}</span>
+                  <small>${escapeHtml(section.label)}</small>
+                </a>
+              `,
+            ),
+          )
+          .join("")}
+      </div>
+      <div class="reader-note">
+        <span>source map</span>
+        <strong>${escapeHtml(course.scoreNote)}</strong>
+      </div>
+      <div class="reader-spread">
+        ${course.scoreSections
+          .map(
+            (section) => `
+              <section class="reader-section" id="${escapeHtml(course.id)}-${escapeHtml(section.kind)}">
+                <header class="reader-section-head">
+                  <div>
+                    <span>${escapeHtml(section.label)}</span>
+                    <strong>${escapeHtml(section.title)}</strong>
+                    <em>PDF pages ${escapeHtml(section.sourcePageRange)} · ${escapeHtml(section.description)}</em>
+                  </div>
+                  <b>${escapeHtml(section.pageCount)} pages</b>
+                </header>
+                ${section.pages
+                  .map(
+                    (page) => `
+                      <figure class="reader-page score-image-frame" id="${escapeHtml(course.id)}-${escapeHtml(page.kind)}-${page.pageNumber}">
+                        <figcaption>
+                          <span>${escapeHtml(page.sectionLabel)} ${String(page.pageNumber).padStart(2, "0")}</span>
+                          <em>source p.${escapeHtml(page.sourcePage)}</em>
+                        </figcaption>
+                        <img src="${escapeHtml(page.src)}" alt="${escapeHtml(page.title)}" loading="${page.pageNumber === 1 ? "eager" : "lazy"}" decoding="async" />
+                      </figure>
+                    `,
+                  )
+                  .join("")}
+              </section>
+            `,
+          )
+          .join("")}
+      </div>
     </div>
   `;
 }
