@@ -1,6 +1,15 @@
 import { G1_OCR_SELECTION_SAMPLES } from "./g1-ocr-data.mjs";
-import { G1_COURSE01_REVIEWED_HOTSPOTS } from "./g1-course01-reviewed-hotspots.mjs?v=course01-card-boundaries";
-import { G1_COURSE02_REVIEWED_HOTSPOTS } from "./g1-course02-reviewed-hotspots.mjs?v=course02-reviewed";
+import { G1_COURSE01_REVIEWED_HOTSPOTS } from "./g1-course01-reviewed-hotspots.mjs?v=g1-all-reviewed";
+import { G1_COURSE02_REVIEWED_HOTSPOTS } from "./g1-course02-reviewed-hotspots.mjs?v=g1-all-reviewed";
+import { G1_COURSE03_REVIEWED_HOTSPOTS } from "./g1-course03-reviewed-hotspots.mjs?v=g1-all-reviewed";
+import { G1_COURSE04_REVIEWED_HOTSPOTS } from "./g1-course04-reviewed-hotspots.mjs?v=g1-all-reviewed";
+import { G1_COURSE05_REVIEWED_HOTSPOTS } from "./g1-course05-reviewed-hotspots.mjs?v=g1-all-reviewed";
+import { G1_COURSE06_REVIEWED_HOTSPOTS } from "./g1-course06-reviewed-hotspots.mjs?v=g1-all-reviewed";
+import { G1_COURSE07_REVIEWED_HOTSPOTS } from "./g1-course07-reviewed-hotspots.mjs?v=g1-all-reviewed";
+import { G1_COURSE08_REVIEWED_HOTSPOTS } from "./g1-course08-reviewed-hotspots.mjs?v=g1-all-reviewed";
+import { G1_COURSE09_REVIEWED_HOTSPOTS } from "./g1-course09-reviewed-hotspots.mjs?v=g1-all-reviewed";
+import { G1_COURSE10_REVIEWED_HOTSPOTS } from "./g1-course10-reviewed-hotspots.mjs?v=g1-all-reviewed";
+import { G1_COURSE11_REVIEWED_HOTSPOTS } from "./g1-course11-reviewed-hotspots.mjs?v=g1-all-reviewed";
 import { G1_HOTSPOTS_FULL } from "./g1-hotspots-full.mjs";
 
 const THEORY_LEVELS = [
@@ -1107,6 +1116,15 @@ function hotspotToModule(item) {
 const G1_REVIEWED_HOTSPOT_SOURCES = [
   G1_COURSE01_REVIEWED_HOTSPOTS,
   G1_COURSE02_REVIEWED_HOTSPOTS,
+  G1_COURSE03_REVIEWED_HOTSPOTS,
+  G1_COURSE04_REVIEWED_HOTSPOTS,
+  G1_COURSE05_REVIEWED_HOTSPOTS,
+  G1_COURSE06_REVIEWED_HOTSPOTS,
+  G1_COURSE07_REVIEWED_HOTSPOTS,
+  G1_COURSE08_REVIEWED_HOTSPOTS,
+  G1_COURSE09_REVIEWED_HOTSPOTS,
+  G1_COURSE10_REVIEWED_HOTSPOTS,
+  G1_COURSE11_REVIEWED_HOTSPOTS,
 ];
 
 const G1_REVIEWED_HOTSPOT_PAGES_BY_PAGE = Object.fromEntries(
