@@ -1,4 +1,5 @@
 import { G1_OCR_SELECTION_SAMPLES } from "./g1-ocr-data.mjs";
+import { G1_HOTSPOTS_FULL } from "./g1-hotspots-full.mjs";
 
 const THEORY_LEVELS = [
   {
@@ -1074,11 +1075,278 @@ export function getAnswerBookReferenceIndex() {
   }));
 }
 
+function hotspotTitle(item) {
+  if (item.kind === "exercise-question" && item.marker) return `题目 ${item.marker}`;
+  if (item.kind === "heading") return item.chineseText || item.englishText || "标题";
+  if (item.kind === "table-row") return "表格行";
+  if (item.kind === "notation-example") return "谱例";
+  if (item.kind === "visual-example") return "示例";
+  if (item.kind === "terminology-label") return "术语";
+  if (item.kind === "footer") return "页脚";
+  if (item.kind === "page-note") return "页面提示";
+  if (item.marker === "bullet") return "项目符号";
+  return item.chineseText || item.englishText || item.itemId;
+}
+
+function hotspotToModule(item) {
+  return {
+    id: item.itemId,
+    kind: item.kind || "sentence",
+    marker: item.marker || "",
+    title: hotspotTitle(item),
+    trigger: item.bbox,
+    highlight: item.bbox,
+    zh: item.chineseText || "",
+    en: item.englishText || "",
+    source: item.source || "hotspot-json",
+  };
+}
+
+const G1_FULL_HOTSPOT_MODULES_BY_PAGE = Object.fromEntries(
+  G1_HOTSPOTS_FULL.pages.map((page) => [
+    page.pageId,
+    page.items.map(hotspotToModule),
+  ]),
+);
+
+const G1_STUDENT_OCR_PAGES_BY_ID = Object.fromEntries(
+  Object.values(G1_OCR_SELECTION_SAMPLES).flatMap((sample) => sample.pages.map((page) => [page.id, page])),
+);
+
+function annotationSourceLabel(page) {
+  const pageNumber = String(page.pageNumber || 0).padStart(2, "0");
+  return page.section === "answers" ? `EN answer page ${pageNumber}` : `EN source page ${pageNumber}`;
+}
+
+function annotationAltText(page) {
+  const section = page.section === "answers" ? "answer" : "student";
+  return `Grade 1 ${page.courseId} ${section} page ${page.pageNumber}`;
+}
+
+function fullHotspotPageToAnnotationPage(page) {
+  const ocrPage = G1_STUDENT_OCR_PAGES_BY_ID[page.pageId];
+  return {
+    id: page.pageId,
+    pageLabel: page.pageLabel,
+    sourceLabel: annotationSourceLabel(page),
+    src: page.image,
+    alt: annotationAltText(page),
+    section: page.section,
+    coverageStatus: page.coverageStatus,
+    ocrSegments: ocrPage?.ocrSegments || [],
+    modules: (G1_FULL_HOTSPOT_MODULES_BY_PAGE[page.pageId] || []).map((module) => ({ ...module })),
+  };
+}
+
+function getGrade1FullHotspotSample(courseId) {
+  const pages = G1_HOTSPOTS_FULL.pages.filter((page) => page.courseId === courseId);
+  if (!pages.length) return null;
+  const fallback = G1_OCR_SELECTION_SAMPLES[courseId];
+  return {
+    id: fallback?.id || `g1-${courseId}-full-hotspots`,
+    label: fallback?.label || "English original with Chinese selection notes",
+    schemaVersion: G1_HOTSPOTS_FULL.schemaVersion,
+    hotspotCount: pages.reduce((total, page) => total + page.items.length, 0),
+    pages: pages.map(fullHotspotPageToAnnotationPage),
+  };
+}
+
+const OCR_MODULE_DEFINITIONS = {
+  "g1-course-01-p01": [
+    {
+      id: "p01-rhythm",
+      kind: "module",
+      title: "节奏",
+      trigger: { x: 17.7, y: 18.8, w: 15.2, h: 4.4 },
+      highlight: { x: 17.2, y: 18.4, w: 76.2, h: 47.4 },
+      zh: "节奏描述不同时值的音符如何随着时间组织起来。脉动是稳定的计数，像心跳一样，为节奏建立框架。脉动按一定数量组合成拍，这里每四拍为一组。时值表示一个音符持续多少拍，常见有全音符 4 拍、二分音符 2 拍、四分音符 1 拍。二分音符和四分音符由符干连接符头构成，全音符只有符头，没有符干。",
+      en: "Rhythm describes how notes of different durations are organised over time. A pulse is a steady count. Time values show how many counts a note lasts.",
+    },
+    {
+      id: "p01-rhythm-definition",
+      kind: "sentence",
+      title: "节奏定义",
+      trigger: { x: 19.0, y: 22.3, w: 70.0, h: 3.1 },
+      highlight: { x: 19.0, y: 22.3, w: 70.0, h: 3.1 },
+      zh: "节奏：不同时值的音符如何按时间组织。",
+      en: "Rhythm describes how notes of different durations are organised over time.",
+    },
+    {
+      id: "p01-pulse-definition",
+      kind: "sentence",
+      title: "脉动定义",
+      trigger: { x: 19.0, y: 25.2, w: 71.0, h: 3.2 },
+      highlight: { x: 19.0, y: 25.2, w: 71.0, h: 3.2 },
+      zh: "脉动：像心跳一样稳定计数，支撑节奏。",
+      en: "A pulse is a steady count, like a heartbeat.",
+    },
+    {
+      id: "p01-pulse-groups-note",
+      kind: "sentence",
+      title: "拍的分组",
+      trigger: { x: 19.0, y: 34.6, w: 64.0, h: 3.2 },
+      highlight: { x: 19.0, y: 34.6, w: 64.0, h: 3.2 },
+      zh: "脉动会分成一组组的计数，这些计数叫拍。",
+      en: "The pulse is organised into groups of counts.",
+    },
+    {
+      id: "p01-time-value-note",
+      kind: "sentence",
+      title: "时值",
+      trigger: { x: 19.0, y: 48.7, w: 49.0, h: 3.2 },
+      highlight: { x: 19.0, y: 48.7, w: 49.0, h: 3.2 },
+      zh: "时值：一个音符持续多少拍。",
+      en: "A time value shows how many counts a note lasts.",
+    },
+    {
+      id: "p01-pitch",
+      kind: "module",
+      title: "音高",
+      trigger: { x: 17.7, y: 66.2, w: 13.0, h: 4.4 },
+      highlight: { x: 17.2, y: 66.0, w: 76.6, h: 27.6 },
+      zh: "音高描述一个音听起来有多高或多低。为了表示音高，我们把音符写在五线谱上；音符可以写在线和间上，每条线和每个间代表不同音高。音符在五线谱上的位置越高，音高就越高。所有音高都用 A 到 G 之间的字母名称表示。",
+      en: "Pitch describes how high or low a note sounds. Notes are placed on a stave; the higher the note is placed, the higher its pitch.",
+    },
+    {
+      id: "p01-pitch-definition",
+      kind: "sentence",
+      title: "音高定义",
+      trigger: { x: 19.0, y: 72.4, w: 46.0, h: 3.1 },
+      highlight: { x: 19.0, y: 72.4, w: 46.0, h: 3.1 },
+      zh: "音高：一个音听起来有多高或多低。",
+      en: "Pitch describes how high or low a note sounds.",
+    },
+    {
+      id: "p01-stave-note",
+      kind: "sentence",
+      title: "五线谱",
+      trigger: { x: 19.0, y: 75.1, w: 42.0, h: 3.1 },
+      highlight: { x: 19.0, y: 75.1, w: 42.0, h: 3.1 },
+      zh: "表示音高时，把音符放在五线谱上。",
+      en: "To show pitches, we place notes on a stave.",
+    },
+  ],
+  "g1-course-01-p02": [
+    {
+      id: "p02-time-values",
+      kind: "module",
+      title: "时值",
+      trigger: { x: 7.6, y: 15.0, w: 27.0, h: 3.4 },
+      highlight: { x: 6.7, y: 14.8, w: 88.7, h: 18.0 },
+      zh: "时值表示一个音符持续多少拍。常见时值包括全音符、二分音符、四分音符和八分音符。两个八分音符合起来是一拍，通常用符杠连接。",
+      en: "Time values show how many counts a note lasts. Common values include semibreves, minims, crotchets and quavers. Pairs of quavers add up to one count.",
+    },
+    {
+      id: "p02-time-values-sentence",
+      kind: "sentence",
+      title: "时值定义",
+      trigger: { x: 10.0, y: 20.1, w: 42.0, h: 7.5 },
+      highlight: { x: 10.0, y: 20.1, w: 42.0, h: 7.5 },
+      zh: "时值：音符持续多少拍；常见有全音符、二分音符、四分音符、八分音符。",
+      en: "Time values show how many counts a note lasts.",
+    },
+    {
+      id: "p02-quaver-pairs-sentence",
+      kind: "sentence",
+      title: "八分音符",
+      trigger: { x: 10.0, y: 29.2, w: 39.0, h: 5.8 },
+      highlight: { x: 10.0, y: 29.2, w: 39.0, h: 5.8 },
+      zh: "两个八分音符合起来是一拍，常用符杠连接。",
+      en: "Pairs of quavers add up to one count.",
+    },
+    {
+      id: "p02-exercise-1",
+      kind: "module",
+      title: "练习 1",
+      trigger: { x: 7.8, y: 33.3, w: 40.5, h: 3.5 },
+      highlight: { x: 7.0, y: 33.0, w: 66.4, h: 31.0 },
+      zh: "练习 1：完成表格。根据音符名称、音符样子和持续拍数，把缺失的信息填进去。",
+      en: "Exercise 1: Complete this table. Fill in the missing note name, appearance, or count value.",
+    },
+    {
+      id: "p02-theory-in-sound",
+      kind: "module",
+      title: "听觉中的乐理",
+      trigger: { x: 76.5, y: 33.7, w: 17.0, h: 18.6 },
+      highlight: { x: 76.2, y: 33.5, w: 17.8, h: 19.2 },
+      zh: "请一边拍不同的时值，一边让老师或朋友稳定地打拍。你拍的时候，大声数出脉动。",
+      en: "Try clapping different time values while your teacher or a friend taps a steady pulse. Count the pulse out loud as you clap.",
+    },
+    {
+      id: "p02-exercise-2",
+      kind: "module",
+      title: "练习 2",
+      trigger: { x: 7.8, y: 66.2, w: 50.0, h: 3.5 },
+      highlight: { x: 7.0, y: 66.0, w: 82.8, h: 26.4 },
+      zh: "练习 2：为每个问题圈出正确答案。判断哪个音符时值最短、哪个最长、哪个比二分音符长，并计算两个音符合起来值多少拍。",
+      en: "Exercise 2: Circle the correct answer for each question about note durations and count values.",
+    },
+    {
+      id: "p02-ex2-question-a",
+      kind: "sentence",
+      title: "题目 a",
+      trigger: { x: 8.0, y: 78.8, w: 40.0, h: 3.5 },
+      highlight: { x: 8.0, y: 78.8, w: 40.0, h: 3.5 },
+      zh: "a：以下哪个音符的时值最短？",
+      en: "Which of these notes has the shortest duration?",
+    },
+    {
+      id: "p02-ex2-question-b",
+      kind: "sentence",
+      title: "题目 b",
+      trigger: { x: 8.0, y: 83.6, w: 40.0, h: 3.5 },
+      highlight: { x: 8.0, y: 83.6, w: 40.0, h: 3.5 },
+      zh: "b：以下哪个音符的时值最长？",
+      en: "Which of these notes has the longest duration?",
+    },
+    {
+      id: "p02-ex2-question-c",
+      kind: "sentence",
+      title: "题目 c",
+      trigger: { x: 8.0, y: 88.5, w: 82.0, h: 3.5 },
+      highlight: { x: 8.0, y: 88.5, w: 82.0, h: 3.5 },
+      zh: "c：以下哪个音符比二分音符更长？",
+      en: "Which of these lasts longer than a minim?",
+    },
+    {
+      id: "p02-ex2-question-d",
+      kind: "sentence",
+      title: "题目 d",
+      trigger: { x: 8.0, y: 93.0, w: 82.0, h: 3.5 },
+      highlight: { x: 8.0, y: 93.0, w: 82.0, h: 3.5 },
+      zh: "d：这两个音符合起来值多少拍？",
+      en: "How many counts is this worth?",
+    },
+    {
+      id: "p02-ex2-question-e",
+      kind: "sentence",
+      title: "题目 e",
+      trigger: { x: 8.0, y: 96.7, w: 82.0, h: 3.1 },
+      highlight: { x: 8.0, y: 96.7, w: 82.0, h: 3.1 },
+      zh: "e：这两个音符合起来值多少拍？",
+      en: "How many counts is this worth?",
+    },
+  ],
+};
+
+function hydrateAnnotationSample(sample) {
+  if (!sample) return null;
+  return {
+    ...sample,
+    pages: sample.pages.map((page) => ({
+      ...page,
+      modules: (page.modules || OCR_MODULE_DEFINITIONS[page.id] || []).map((module) => ({ ...module })),
+    })),
+  };
+}
+
 function getAnnotationSample(gradeId, courseId) {
   if (gradeId === "grade-1") {
-    return G1_OCR_SELECTION_SAMPLES[courseId] || OCR_SELECTION_SAMPLES[gradeId]?.[courseId] || null;
+    return getGrade1FullHotspotSample(courseId) || hydrateAnnotationSample(G1_OCR_SELECTION_SAMPLES[courseId] || null);
   }
-  return OCR_SELECTION_SAMPLES[gradeId]?.[courseId] || null;
+  const sample =
+    OCR_SELECTION_SAMPLES[gradeId]?.[courseId] || null;
+  return hydrateAnnotationSample(sample);
 }
 
 function hydrateTheoryCourse(item, gradeId) {
@@ -1436,29 +1704,6 @@ function bindCoverGallery(root, items, onSelectGrade) {
 
   window.addEventListener("resize", layout);
   layout();
-}
-
-function renderLevelBoard(model, activeLevel) {
-  return model.levels
-    .map(
-      (level) => `
-        <button
-          class="level-label chroma-card${level.id === activeLevel ? " is-active" : ""}"
-          type="button"
-          data-level="${escapeHtml(level.id)}"
-          style="--accent:${escapeHtml(level.color)}"
-        >
-          <span class="level-kicker">${escapeHtml(level.short)}</span>
-          <strong>${escapeHtml(level.label)}</strong>
-          <small>${escapeHtml(level.core)}</small>
-          <div class="level-meta">
-            <em>${level.moduleCount} 模块</em>
-            <em>0 资料</em>
-          </div>
-        </button>
-      `,
-    )
-    .join("");
 }
 
 function renderResourceList(model, resources, selectedResourceId) {
@@ -2103,23 +2348,41 @@ function boundedPercent(value) {
   return Math.min(100, Math.max(0, number));
 }
 
-function renderOcrTextSegment(segment) {
-  const style = [
-    `--x:${boundedPercent(segment.x)}%`,
-    `--y:${boundedPercent(segment.y)}%`,
-    `--w:${boundedPercent(segment.w)}%`,
-    `--h:${boundedPercent(segment.h)}%`,
-    `--fs:${Number(segment.fs) || 1.45}`,
+function rectStyle(rect) {
+  return [
+    `--x:${boundedPercent(rect?.x)}%`,
+    `--y:${boundedPercent(rect?.y)}%`,
+    `--w:${boundedPercent(rect?.w)}%`,
+    `--h:${boundedPercent(rect?.h)}%`,
   ].join(";");
+}
 
+function rectData(rect) {
+  return [rect?.x, rect?.y, rect?.w, rect?.h].map((value) => boundedPercent(value)).join(",");
+}
+
+function parseRectData(value) {
+  const [x, y, w, h] = String(value || "").split(",").map((part) => Number(part));
+  return { x, y, w, h };
+}
+
+function renderAnnotationModuleHotspot(module) {
+  const kind = module.kind || "module";
   return `
-    <span
-      class="ocr-text-segment"
-      style="${style}"
-      data-ocr-segment="${escapeHtml(segment.id)}"
-      data-zh="${escapeHtml(segment.zh)}"
-      data-text="${escapeHtml(segment.text)}"
-    >${escapeHtml(segment.text)}</span>
+    <button
+      type="button"
+      class="annotation-module-hotspot is-${escapeHtml(kind)}"
+      style="${rectStyle(module.trigger)}"
+      data-annotation-module="${escapeHtml(module.id)}"
+      data-module-kind="${escapeHtml(kind)}"
+      data-module-marker="${escapeHtml(module.marker || "")}"
+      data-module-source="${escapeHtml(module.source || "")}"
+      data-module-title="${escapeHtml(module.title)}"
+      data-module-zh="${escapeHtml(module.zh)}"
+      data-module-en="${escapeHtml(module.en)}"
+      data-module-highlight="${escapeHtml(rectData(module.highlight))}"
+      aria-label="翻译模块：${escapeHtml(module.title)}"
+    ></button>
   `;
 }
 
@@ -2132,8 +2395,8 @@ function renderAnnotationPage(page, index) {
       </div>
       <figure class="annotation-page-frame">
         <img src="${escapeHtml(page.src)}" alt="${escapeHtml(page.alt)}" loading="${index === 0 ? "eager" : "lazy"}" />
-        <figcaption class="ocr-text-layer" data-ocr-text>${page.ocrSegments.map(renderOcrTextSegment).join("")}</figcaption>
-        <div class="ocr-selection-box" data-selection-box hidden></div>
+        <div class="annotation-module-highlight" data-module-highlight-box hidden></div>
+        ${(page.modules || []).map(renderAnnotationModuleHotspot).join("")}
       </figure>
     </article>
   `;
@@ -2143,14 +2406,6 @@ function renderAnnotationReader(course) {
   const sample = course.annotationSample;
   return `
     <div class="annotation-reader" data-annotation-reader>
-      <div class="annotation-reader-head">
-        <div>
-          <span>${escapeHtml(sample.label)}</span>
-          <strong>${escapeHtml(course.title)}</strong>
-          <em>${escapeHtml(sample.note)}</em>
-        </div>
-        <b>${escapeHtml(sample.badge || `${course.classLabel} / ${sample.pages.length} pages`)}</b>
-      </div>
       <div class="annotation-page-stack">
         ${sample.pages.map(renderAnnotationPage).join("")}
       </div>
@@ -2159,98 +2414,87 @@ function renderAnnotationReader(course) {
   `;
 }
 
-let activeOcrBoxSelection = null;
-
-function rectsIntersect(a, b) {
-  return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
-}
-
 function hideSelectionPopover(root) {
   const popover = root.querySelector("[data-selection-popover]");
-  if (popover) popover.hidden = true;
+  if (!popover) return;
+  popover.hidden = true;
+  popover.style.left = "";
+  popover.style.top = "";
 }
 
-function clearOcrSelection(root) {
-  root.querySelectorAll("[data-ocr-segment].is-selected").forEach((segment) => segment.classList.remove("is-selected"));
-  root.querySelectorAll("[data-selection-box]").forEach((box) => {
-    box.hidden = true;
-    box.style.cssText = "";
+function clearModuleTranslation(root) {
+  root.querySelectorAll("[data-annotation-module].is-active").forEach((button) => button.classList.remove("is-active"));
+  root.querySelectorAll("[data-module-highlight-box]").forEach((highlight) => {
+    highlight.hidden = true;
+    highlight.style.cssText = "";
   });
 }
 
-function showOcrTranslation(root, segments, rect) {
+function clampPixel(value, min, max) {
+  if (!Number.isFinite(value)) return min;
+  return Math.max(min, Math.min(value, max));
+}
+
+function positionModulePopover(popover, button) {
+  const gap = 10;
+  const margin = 12;
+  const buttonRect = button.getBoundingClientRect();
+  const frameRect = button.closest(".annotation-page-frame")?.getBoundingClientRect() || buttonRect;
+  const popoverRect = popover.getBoundingClientRect();
+  const width = popoverRect.width || Math.min(280, window.innerWidth - margin * 2);
+  const height = popoverRect.height || 132;
+  const rightSpace = window.innerWidth - frameRect.right;
+  const leftSpace = frameRect.left;
+  let left;
+
+  if (rightSpace >= width + gap + margin) {
+    left = frameRect.right + gap;
+  } else if (leftSpace >= width + gap + margin) {
+    left = frameRect.left - width - gap;
+  } else {
+    const sideCandidate = buttonRect.left < window.innerWidth / 2
+      ? buttonRect.right + gap
+      : buttonRect.left - width - gap;
+    left = clampPixel(sideCandidate, margin, window.innerWidth - width - margin);
+  }
+
+  const top = clampPixel(
+    buttonRect.top + buttonRect.height / 2 - height / 2,
+    margin,
+    window.innerHeight - height - margin,
+  );
+
+  popover.style.left = `${Math.round(left)}px`;
+  popover.style.top = `${Math.round(top)}px`;
+}
+
+function showModuleTranslation(root, button) {
   const popover = root.querySelector("[data-selection-popover]");
-  if (!popover || !segments.length) {
-    hideSelectionPopover(root);
-    return;
+  if (!popover) return;
+  const frame = button.closest(".annotation-page-frame");
+  const highlight = frame?.querySelector("[data-module-highlight-box]");
+  const highlightRect = parseRectData(button.dataset.moduleHighlight);
+  if (highlight) {
+    highlight.style.cssText = rectStyle(highlightRect);
+    highlight.hidden = false;
   }
-  const zhText = segments.map((segment) => segment.dataset.zh).filter(Boolean).join(" ");
-  const enText = segments.map((segment) => segment.dataset.text).filter(Boolean).join(" ");
-  const left = Math.max(8, Math.min(window.innerWidth - 392, rect.left));
-  const top = Math.max(8, Math.min(window.innerHeight - 130, rect.bottom + 12));
-  popover.innerHTML = `<span>${escapeHtml(zhText)}</span><em>${escapeHtml(enText)}</em>`;
-  popover.style.left = `${left}px`;
-  popover.style.top = `${top}px`;
+  button.classList.add("is-active");
+  popover.dataset.moduleKind = button.dataset.moduleKind || "module";
+  popover.innerHTML = `
+    <span>${escapeHtml(button.dataset.moduleTitle || "")}</span>
+    <p>${escapeHtml(button.dataset.moduleZh || "")}</p>
+    <em>${escapeHtml(button.dataset.moduleEn || "")}</em>
+  `;
   popover.hidden = false;
+  positionModulePopover(popover, button);
 }
 
-function updateOcrSelection(root, frame, rect) {
-  const segments = Array.from(frame.querySelectorAll("[data-ocr-segment]"));
-  const selected = segments.filter((segment) => rectsIntersect(rect, segment.getBoundingClientRect()));
-  segments.forEach((segment) => segment.classList.toggle("is-selected", selected.includes(segment)));
-  return selected;
-}
-
-function beginOcrBoxSelection(root, event) {
-  const layer = event.target.closest("[data-ocr-text]");
-  if (!layer) return;
-  const frame = layer.closest(".annotation-page-frame");
-  const box = frame?.querySelector("[data-selection-box]");
-  if (!frame || !box) return;
-  event.preventDefault();
-  clearOcrSelection(root);
+function activateAnnotationModule(root, button, { forceOpen = false } = {}) {
+  const wasActive = button.classList.contains("is-active");
+  clearModuleTranslation(root);
   hideSelectionPopover(root);
-  activeOcrBoxSelection = { root, frame, box, startX: event.clientX, startY: event.clientY };
-  box.hidden = false;
-  box.style.left = `${event.clientX - frame.getBoundingClientRect().left}px`;
-  box.style.top = `${event.clientY - frame.getBoundingClientRect().top}px`;
-  box.style.width = "0px";
-  box.style.height = "0px";
-  event.target.setPointerCapture?.(event.pointerId);
-}
-
-function moveOcrBoxSelection(event) {
-  if (!activeOcrBoxSelection) return;
-  event.preventDefault();
-  const { frame, box, startX, startY } = activeOcrBoxSelection;
-  const frameRect = frame.getBoundingClientRect();
-  const left = Math.min(startX, event.clientX);
-  const top = Math.min(startY, event.clientY);
-  const right = Math.max(startX, event.clientX);
-  const bottom = Math.max(startY, event.clientY);
-  box.style.left = `${left - frameRect.left}px`;
-  box.style.top = `${top - frameRect.top}px`;
-  box.style.width = `${right - left}px`;
-  box.style.height = `${bottom - top}px`;
-  activeOcrBoxSelection.latestRect = { left, top, right, bottom };
-}
-
-function finishOcrBoxSelection(event) {
-  if (!activeOcrBoxSelection) return;
-  moveOcrBoxSelection(event);
-  const { root, frame, latestRect } = activeOcrBoxSelection;
-  activeOcrBoxSelection = null;
-  if (!latestRect || latestRect.right - latestRect.left < 4 || latestRect.bottom - latestRect.top < 4) {
-    clearOcrSelection(root);
-    hideSelectionPopover(root);
-    return;
-  }
-  const selected = updateOcrSelection(root, frame, latestRect);
-  showOcrTranslation(root, selected, latestRect);
-}
-
-function handleAnnotationSelection(root) {
-  return root.querySelectorAll("[data-ocr-segment].is-selected").length;
+  if (wasActive && !forceOpen) return;
+  showModuleTranslation(root, button);
 }
 
 function renderTheoryCourseScores(course, activeSourceId = "zh") {
@@ -2391,8 +2635,6 @@ function bindBlankWorkspace(model) {
   const root = document.querySelector("[data-app]");
   const coverGallery = document.getElementById("coverGallery");
   const heroStats = document.getElementById("heroStats");
-  const levelBoard = document.getElementById("levelBoard");
-  const levelSummary = document.getElementById("levelSummary");
   const queryInput = document.getElementById("queryInput");
   const levelFilter = document.getElementById("levelFilter");
   const moduleFilter = document.getElementById("moduleFilter");
@@ -2405,8 +2647,6 @@ function bindBlankWorkspace(model) {
   if (
     !root ||
     !heroStats ||
-    !levelBoard ||
-    !levelSummary ||
     !courseDetail
   ) {
     return;
@@ -2471,8 +2711,6 @@ function bindBlankWorkspace(model) {
     const selectedResource = model.resources.find((resource) => resource.id === state.selectedResourceId);
     if (selectedResource) state.selectedModuleId = selectedResource.moduleId;
 
-    const activeModule = findModuleById(model.modules, state.selectedModuleId);
-    const activeLevel = state.level === "all" ? activeModule.level : state.level;
     const courses = getTheoryCoursePickerItems(state.selectedGradeId);
     if (!courses.some((course) => course.id === state.selectedCourseId)) {
       state.selectedCourseId = courses[0]?.id || "";
@@ -2490,17 +2728,11 @@ function bindBlankWorkspace(model) {
     if (levelFilter) levelFilter.value = state.level;
     if (moduleFilter) moduleFilter.value = state.module;
     heroStats.innerHTML = renderStats(model, result);
-    levelBoard.innerHTML = renderLevelBoard(model, activeLevel);
-    levelSummary.textContent = `${result.levels.length} 个阶段 · ${result.modules.length} 个模块 · 0 个真实资料`;
     if (resourceCount) resourceCount.textContent = `${result.resources.length} 个占位资源`;
     if (activeSummary) activeSummary.textContent = summaryParts.length ? summaryParts.join(" · ") : "全部空白资源位";
     if (tagCloud) tagCloud.innerHTML = renderTagCloud(model, result.resources);
     if (resourceList) resourceList.innerHTML = renderResourceList(model, result.resources, state.selectedResourceId);
     courseDetail.innerHTML = renderTheoryCourseDetail(selectedCourse, courses, state.detailTab, state.scoreSource);
-
-    levelBoard.querySelectorAll("[data-level]").forEach((button) => {
-      button.addEventListener("click", () => setLevel(button.dataset.level));
-    });
 
     tagCloud?.querySelectorAll("[data-query]").forEach((button) => {
       button.addEventListener("click", () => setQuery(button.dataset.query));
@@ -2534,14 +2766,31 @@ function bindBlankWorkspace(model) {
       });
     });
 
-    if (courseDetail.querySelector("[data-ocr-text]")) {
-      courseDetail.addEventListener("pointerdown", (event) => beginOcrBoxSelection(courseDetail, event));
-      courseDetail.addEventListener("pointermove", moveOcrBoxSelection);
-      courseDetail.addEventListener("pointerup", finishOcrBoxSelection);
-      courseDetail.addEventListener("pointercancel", () => {
-        activeOcrBoxSelection = null;
-        clearOcrSelection(courseDetail);
-        hideSelectionPopover(courseDetail);
+    if (courseDetail.querySelector("[data-annotation-reader]") && !courseDetail.dataset.annotationModuleBound) {
+      courseDetail.dataset.annotationModuleBound = "true";
+      courseDetail.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-annotation-module]");
+        if (!button || !courseDetail.contains(button)) {
+          if (!event.target.closest("[data-selection-popover]")) {
+            clearModuleTranslation(courseDetail);
+            hideSelectionPopover(courseDetail);
+          }
+          return;
+        }
+        event.preventDefault();
+        activateAnnotationModule(courseDetail, button);
+      });
+      courseDetail.addEventListener("dblclick", (event) => {
+        const button = event.target.closest("[data-annotation-module]");
+        if (!button || !courseDetail.contains(button)) return;
+        event.preventDefault();
+        activateAnnotationModule(courseDetail, button, { forceOpen: true });
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          clearModuleTranslation(courseDetail);
+          hideSelectionPopover(courseDetail);
+        }
       });
     }
 
