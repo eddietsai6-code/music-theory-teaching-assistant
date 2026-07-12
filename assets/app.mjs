@@ -1,5 +1,5 @@
 import { G1_OCR_SELECTION_SAMPLES } from "./g1-ocr-data.mjs";
-import { G1_COURSE01_REVIEWED_HOTSPOTS } from "./g1-course01-reviewed-hotspots.mjs";
+import { G1_COURSE01_REVIEWED_HOTSPOTS } from "./g1-course01-reviewed-hotspots.mjs?v=course01-card-boundaries";
 import { G1_HOTSPOTS_FULL } from "./g1-hotspots-full.mjs";
 
 const THEORY_LEVELS = [
