@@ -1,4 +1,5 @@
 import { G1_OCR_SELECTION_SAMPLES } from "./g1-ocr-data.mjs";
+import { G1_COURSE01_REVIEWED_HOTSPOTS } from "./g1-course01-reviewed-hotspots.mjs";
 import { G1_HOTSPOTS_FULL } from "./g1-hotspots-full.mjs";
 
 const THEORY_LEVELS = [
@@ -1102,8 +1103,14 @@ function hotspotToModule(item) {
   };
 }
 
+const G1_REVIEWED_HOTSPOT_PAGES_BY_PAGE = Object.fromEntries(
+  G1_COURSE01_REVIEWED_HOTSPOTS.pages.map((page) => [page.pageId, page]),
+);
+
+const G1_HOTSPOT_PAGES = G1_HOTSPOTS_FULL.pages.map((page) => G1_REVIEWED_HOTSPOT_PAGES_BY_PAGE[page.pageId] || page);
+
 const G1_FULL_HOTSPOT_MODULES_BY_PAGE = Object.fromEntries(
-  G1_HOTSPOTS_FULL.pages.map((page) => [
+  G1_HOTSPOT_PAGES.map((page) => [
     page.pageId,
     page.items.map(hotspotToModule),
   ]),
@@ -1133,19 +1140,25 @@ function fullHotspotPageToAnnotationPage(page) {
     alt: annotationAltText(page),
     section: page.section,
     coverageStatus: page.coverageStatus,
+    reviewStatus: page.reviewStatus || "",
+    reviewedAt: page.reviewedAt || "",
     ocrSegments: ocrPage?.ocrSegments || [],
     modules: (G1_FULL_HOTSPOT_MODULES_BY_PAGE[page.pageId] || []).map((module) => ({ ...module })),
   };
 }
 
 function getGrade1FullHotspotSample(courseId) {
-  const pages = G1_HOTSPOTS_FULL.pages.filter((page) => page.courseId === courseId);
+  const pages = G1_HOTSPOT_PAGES.filter((page) => page.courseId === courseId);
   if (!pages.length) return null;
   const fallback = G1_OCR_SELECTION_SAMPLES[courseId];
+  const schemaVersion =
+    courseId === G1_COURSE01_REVIEWED_HOTSPOTS.courseId
+      ? G1_COURSE01_REVIEWED_HOTSPOTS.schemaVersion
+      : G1_HOTSPOTS_FULL.schemaVersion;
   return {
     id: fallback?.id || `g1-${courseId}-full-hotspots`,
     label: fallback?.label || "English original with Chinese selection notes",
-    schemaVersion: G1_HOTSPOTS_FULL.schemaVersion,
+    schemaVersion,
     hotspotCount: pages.reduce((total, page) => total + page.items.length, 0),
     pages: pages.map(fullHotspotPageToAnnotationPage),
   };
