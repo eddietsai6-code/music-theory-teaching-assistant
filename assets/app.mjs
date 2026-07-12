@@ -1,3 +1,5 @@
+import { G1_OCR_SELECTION_SAMPLES } from "./g1-ocr-data.mjs";
+
 const THEORY_LEVELS = [
   {
     id: "starter",
@@ -676,6 +678,196 @@ const COURSE_ACCENTS = {
   "music in context": "#f97316",
 };
 
+const DIGITAL_TEXTBOOK_SAMPLES = {
+  "grade-1": {
+    "course-01": {
+      label: "中文电子教材样品",
+      note: "以英文原版的清爽教材版式为结构底稿，用中文版资料校准术语和中文表达。",
+      pages: [
+        {
+          id: "g1-c01-p01",
+          eyebrow: "STUDENT 01",
+          sourcePage: "P.8 / EN P.5",
+          title: "基础：节奏和音高",
+          subtitle: "我们将要学习音乐中非常重要的两个元素：节奏和音高。",
+          variant: "basics",
+          sections: [
+            {
+              heading: "节奏",
+              points: [
+                "节奏描述了不同时值的音符如何按照时间发展组合在一起。",
+                "“脉动”可以被稳定地计数，就像心跳一样。它提供了构建节奏的框架。",
+              ],
+              callouts: [
+                { label: "打节奏", hearts: 8 },
+                { label: "脉动", hearts: 8, beats: ["1", "2", "3", "4", "1", "2", "3", "4"] },
+              ],
+              followUps: [
+                "将“脉动”按照一定数量组合在一起，就构成了拍子。现在我们把这些脉动按照四拍子组合在一起。",
+                "时值是指一个音符将持续多长时间。这里是三个常见音符的时值。",
+                "二分音符和四分音符由符头和符干组成。全音符的符头是空心的，而且没有符干。",
+              ],
+              noteCard: {
+                rows: [
+                  ["全音符", "○", "四拍"],
+                  ["二分音符", "𝅗𝅥", "两拍"],
+                  ["四分音符", "♩", "一拍"],
+                ],
+              },
+              stemCard: {
+                notehead: "符头",
+                stem: "符干",
+              },
+            },
+            {
+              heading: "音高",
+              points: [
+                "音高表示音符听起来高或低。",
+                "为了表示音高，我们用五线谱来标记音符位置。",
+                "音符可以记在五线谱任意的线或间，不同的线、间代表着不同的音高位置。",
+                "五线谱上音符的位置越高，音高就越高。",
+                "所有音高分别以字母 A、B、C、D、E、F、G 来命名。",
+              ],
+              staff: true,
+            },
+          ],
+        },
+        {
+          id: "g1-c01-p02",
+          eyebrow: "STUDENT 02",
+          sourcePage: "P.9 / EN P.6",
+          title: "1 节奏（第一部分）",
+          subtitle: "",
+          learnAbout: ["音符的时值", "小节与小节线", "拍号"],
+          variant: "chapter",
+          sections: [
+            {
+              heading: "时值",
+              points: [
+                "时值表示一个音符有几拍。四个常见音符是全音符、二分音符、四分音符和八分音符。",
+                "两个八分音符加起来是一拍，用符杠连接在一起：♪ ♪ 变成 ♫。",
+              ],
+            },
+          ],
+          timeValueCard: {
+            rows: [
+              { name: "全音符", symbol: "○", count: "四拍", hearts: 4 },
+              { name: "二分音符", symbol: "𝅗𝅥", count: "两拍", hearts: 2 },
+              { name: "四分音符", symbol: "♩", count: "一拍", hearts: 1 },
+              { name: "八分音符", symbol: "♪", count: "半拍", hearts: 0.5 },
+            ],
+          },
+          exercises: [
+            {
+              number: 1,
+              title: "完成表格。",
+              type: "table",
+              headers: ["音符名称", "写法", "数几拍？"],
+              rows: [
+                ["全音符", "", "4"],
+                ["", "𝅗𝅥", ""],
+                ["四分音符", "", ""],
+                ["", "", "1/2"],
+              ],
+            },
+            {
+              number: 2,
+              title: "圈选每个问题的正确答案。",
+              type: "choices",
+              rows: [
+                ["a", "时值最短的音符是哪个？", ["𝅗𝅥", "♪", "♩"]],
+                ["b", "时值最长的音符是哪个？", ["○", "𝅗𝅥", "♪"]],
+                ["c", "这三个音符中哪个时值比二分音符长？", ["四分音符", "八分音符", "全音符"]],
+                ["d", "♫ 加在一起的时值是？", ["两拍", "一拍", "四拍"]],
+                ["e", "𝅗𝅥 ♩ 加在一起的时值是？", ["三拍", "两拍", "一拍"]],
+              ],
+            },
+          ],
+          soundBox: {
+            title: "实际运用",
+            text: "请你在老师或者朋友打出稳定拍子时，尝试打出不同时值的音符。边打拍子边计算“脉动”。",
+          },
+        },
+      ],
+    },
+  },
+};
+
+const OCR_SELECTION_SAMPLES = {
+  "grade-1": {
+    "course-01": {
+      label: "中文注释样品",
+      note: "保留英文原版图片，用 OCR 文本层支持框选翻译。",
+      pages: [
+        {
+          id: "g1-c01-en-p01",
+          pageLabel: "STUDENT 01",
+          sourceLabel: "SOURCE P.5",
+          src: "./assets/scores/grade-1-original/course-01/student-page-01.webp",
+          alt: "Discovering Music Theory Grade 1 page 1",
+          ocrSegments: [
+            { id: "p01-title", text: "THE BASICS: RHYTHM & PITCH", zh: "基础：节奏和音高", x: 15.9, y: 3.5, w: 45, h: 8, fs: 4.2 },
+            { id: "p01-intro", text: "We're going to start by exploring two very important elements of music: rhythm and pitch.", zh: "我们将从音乐中两个非常重要的元素开始学习：节奏和音高。", x: 15.9, y: 15.8, w: 65, h: 2.8, fs: 1.72 },
+            { id: "p01-rhythm-heading", text: "Rhythm", zh: "节奏", x: 21.6, y: 20.0, w: 18, h: 3.2, fs: 2.25 },
+            { id: "p01-rhythm-def", text: "Rhythm describes how notes of different durations (or time values) are organised over time.", zh: "节奏描述了不同时值的音符如何随着时间被组织起来。", x: 21.6, y: 22.7, w: 66, h: 2.7, fs: 1.6 },
+            { id: "p01-pulse-def", text: "A pulse is a steady count, like a heartbeat. It provides the framework on which rhythms are built.", zh: "脉动是一种稳定的计数，像心跳一样。它为构建节奏提供基本框架。", x: 21.6, y: 25.6, w: 68, h: 2.8, fs: 1.6 },
+            { id: "p01-tap-label", text: "Tap:", zh: "打拍：", x: 22.7, y: 30.0, w: 8, h: 2.7, fs: 1.55 },
+            { id: "p01-pulse-groups", text: "The pulse is organised into groups of counts. These counts are known as beats.", zh: "脉动会被组织成一组一组的计数，这些计数称为拍。", x: 21.6, y: 34.9, w: 60.8, h: 2.8, fs: 1.6 },
+            { id: "p01-four-beats", text: "Here, the pulse is arranged into groups of four beats:", zh: "这里，脉动被安排成四拍一组。", x: 22.6, y: 37.4, w: 52, h: 2.6, fs: 1.55 },
+            { id: "p01-pulse-label", text: "Pulse:", zh: "脉动：", x: 22.7, y: 41.2, w: 10, h: 2.6, fs: 1.5 },
+            { id: "p01-beats-label", text: "Beats: 1 2 3 4 1 2 3 4", zh: "拍：1 2 3 4 1 2 3 4。", x: 22.7, y: 44.0, w: 44, h: 2.8, fs: 1.5 },
+            { id: "p01-time-value", text: "A time value shows how many counts a note lasts.", zh: "时值表示一个音符持续多少拍。", x: 21.6, y: 49.0, w: 45, h: 2.8, fs: 1.6 },
+            { id: "p01-common-values", text: "Here are three common time values:", zh: "这里有三种常见的时值。", x: 22.6, y: 51.6, w: 34, h: 2.5, fs: 1.5 },
+            { id: "p01-value-card", text: "semibreve: 4 counts minim: 2 counts crotchet: 1 count", zh: "全音符：4 拍；二分音符：2 拍；四分音符：1 拍。", x: 61.5, y: 49.6, w: 20, h: 9.6, fs: 1.38 },
+            { id: "p01-note-parts", text: "Minims and crotchets are made up of a vertical line called a stem joined to a notehead.", zh: "二分音符和四分音符由一个叫作符干的竖线连接符头组成。", x: 21.6, y: 62.0, w: 43.5, h: 3.1, fs: 1.55 },
+            { id: "p01-pitch-heading", text: "Pitch", zh: "音高", x: 21.6, y: 69.8, w: 14, h: 3.1, fs: 2.2 },
+            { id: "p01-pitch-def", text: "Pitch describes how high or low a note sounds.", zh: "音高描述一个音听起来有多高或多低。", x: 21.6, y: 72.7, w: 42, h: 2.7, fs: 1.55 },
+            { id: "p01-stave", text: "To show pitches, we place notes on a stave:", zh: "为了表示音高，我们把音符写在五线谱上。", x: 21.6, y: 75.4, w: 38, h: 2.7, fs: 1.55 },
+            { id: "p01-lines-spaces", text: "Notes can be placed on every line and in every space of the stave. Each line and each space represents a different pitch.", zh: "音符可以写在五线谱的每一条线和每一个间上；每条线和每个间都代表不同的音高。", x: 21.6, y: 79.3, w: 68, h: 4.8, fs: 1.48 },
+            { id: "p01-higher", text: "The higher the note is placed on the stave, the higher its pitch.", zh: "音符在五线谱上的位置越高，音高就越高。", x: 21.6, y: 84.5, w: 54, h: 2.7, fs: 1.48 },
+            { id: "p01-letter-names", text: "All pitches are given a letter name between A and G in the alphabet.", zh: "所有音高都会用 A 到 G 之间的字母音名来表示。", x: 21.6, y: 93.4, w: 62, h: 2.8, fs: 1.48 },
+          ],
+        },
+        {
+          id: "g1-c01-en-p02",
+          pageLabel: "STUDENT 02",
+          sourceLabel: "SOURCE P.6",
+          src: "./assets/scores/grade-1-original/course-01/student-page-02.webp",
+          alt: "Discovering Music Theory Grade 1 page 2",
+          ocrSegments: [
+            { id: "p02-title", text: "1 RHYTHM (PART 1)", zh: "1 节奏（第一部分）", x: 4.6, y: 2.3, w: 38, h: 9.5, fs: 5.2 },
+            { id: "p02-learn-about", text: "In this chapter you will learn about Time values (notes) Bars and metre Time signatures", zh: "在本章中，你将学习：音符的时值、小节与拍子、拍号。", x: 64.6, y: 3.9, w: 29.5, h: 7.6, fs: 1.5 },
+            { id: "p02-time-heading", text: "Time values", zh: "时值", x: 12.5, y: 17.5, w: 22, h: 3.2, fs: 2.25 },
+            { id: "p02-time-def", text: "Time values show how many counts a note lasts. Four common time values are semibreves, minims, crotchets and quavers.", zh: "时值表示一个音符持续多少拍。常见时值包括全音符、二分音符、四分音符和八分音符。", x: 12.7, y: 20.5, w: 37, h: 7.2, fs: 1.55 },
+            { id: "p02-quaver-pairs", text: "Pairs of quavers add up to one count. They are joined together with a beam:", zh: "两个八分音符相加等于一拍。它们用符杠连接在一起。", x: 12.7, y: 29.5, w: 35, h: 5.5, fs: 1.55 },
+            { id: "p02-becomes", text: "becomes", zh: "变成。", x: 18.5, y: 35.0, w: 10, h: 2.4, fs: 1.4 },
+            { id: "p02-value-semibreve", text: "Semibreve 4 counts", zh: "全音符：4 拍。", x: 53.8, y: 18.6, w: 23, h: 2.8, fs: 1.75 },
+            { id: "p02-value-minim", text: "Minim 2 counts", zh: "二分音符：2 拍。", x: 53.8, y: 22.0, w: 22, h: 2.8, fs: 1.75 },
+            { id: "p02-value-crotchet", text: "Crotchet 1 count", zh: "四分音符：1 拍。", x: 53.8, y: 25.5, w: 23, h: 2.8, fs: 1.75 },
+            { id: "p02-value-quaver", text: "Quaver 1/2 a count", zh: "八分音符：半拍。", x: 53.8, y: 29.0, w: 25, h: 2.8, fs: 1.75 },
+            { id: "p02-ex1-title", text: "Exercise 1 Complete this table.", zh: "练习 1：完成这张表格。", x: 8.5, y: 38.7, w: 38, h: 3.2, fs: 1.85 },
+            { id: "p02-table-head", text: "Name of note Looks like How many counts?", zh: "音符名称；音符样子；持续几拍。", x: 13.5, y: 44.0, w: 54, h: 3.0, fs: 1.45 },
+            { id: "p02-table-semibreve", text: "Semibreve 4", zh: "全音符：4 拍。", x: 14.7, y: 49.0, w: 50, h: 3.0, fs: 1.45 },
+            { id: "p02-table-crotchet", text: "Crotchet", zh: "四分音符。", x: 15.5, y: 60.3, w: 14, h: 3.0, fs: 1.45 },
+            { id: "p02-table-half", text: "1/2", zh: "半拍。", x: 61.0, y: 66.8, w: 5, h: 2.7, fs: 1.35 },
+            { id: "p02-sound-title", text: "Theory in sound", zh: "听觉中的乐理。", x: 78.7, y: 37.7, w: 13, h: 4.8, fs: 1.95 },
+            { id: "p02-sound-text", text: "Try clapping different time values while your teacher or a friend taps a steady pulse. Count the pulse out loud as you clap.", zh: "请老师或同学稳定地打拍，你尝试拍出不同的时值，并边拍边大声数出脉动。", x: 78.8, y: 45.0, w: 14.5, h: 13.5, fs: 1.35 },
+            { id: "p02-ex2-title", text: "Exercise 2 Circle the correct answer for each question.", zh: "练习 2：为每个问题圈出正确答案。", x: 8.5, y: 74.3, w: 48, h: 3.4, fs: 1.8 },
+            { id: "p02-q-a", text: "Which of these notes has the shortest duration?", zh: "以下哪个音符的时值最短？", x: 13.1, y: 79.3, w: 34, h: 2.7, fs: 1.35 },
+            { id: "p02-q-b", text: "Which of these notes has the longest duration?", zh: "以下哪个音符的时值最长？", x: 13.1, y: 84.1, w: 34, h: 2.7, fs: 1.35 },
+            { id: "p02-q-c", text: "Which of these lasts longer than a minim?", zh: "以下哪个音符比二分音符持续更久？", x: 13.1, y: 89.0, w: 31, h: 2.7, fs: 1.35 },
+            { id: "p02-q-c-options", text: "crotchet quaver semibreve", zh: "四分音符；八分音符；全音符。", x: 54.2, y: 89.0, w: 35, h: 2.7, fs: 1.28 },
+            { id: "p02-q-d", text: "How many counts is worth?", zh: "这个节奏值几拍？", x: 13.1, y: 93.5, w: 27, h: 2.7, fs: 1.35 },
+            { id: "p02-q-d-options", text: "2 counts 1 count 4 counts", zh: "2 拍；1 拍；4 拍。", x: 54.0, y: 93.5, w: 35, h: 2.7, fs: 1.28 },
+            { id: "p02-q-e", text: "How many counts is worth?", zh: "这个节奏值几拍？", x: 13.1, y: 97.7, w: 27, h: 2.2, fs: 1.35 },
+            { id: "p02-q-e-options", text: "3 counts 2 counts 1 count", zh: "3 拍；2 拍；1 拍。", x: 54.0, y: 97.7, w: 35, h: 2.2, fs: 1.28 },
+          ],
+        },
+      ],
+    },
+  },
+};
+
 function numberedPageName(kind, pageNumber) {
   return `${kind}-page-${String(pageNumber).padStart(2, "0")}.webp`;
 }
@@ -882,6 +1074,13 @@ export function getAnswerBookReferenceIndex() {
   }));
 }
 
+function getAnnotationSample(gradeId, courseId) {
+  if (gradeId === "grade-1") {
+    return G1_OCR_SELECTION_SAMPLES[courseId] || OCR_SELECTION_SAMPLES[gradeId]?.[courseId] || null;
+  }
+  return OCR_SELECTION_SAMPLES[gradeId]?.[courseId] || null;
+}
+
 function hydrateTheoryCourse(item, gradeId) {
   const meta = getCoursePageMeta(gradeId, item.id);
   const accent = COURSE_ACCENTS[item.category] || "#24a148";
@@ -981,6 +1180,8 @@ function hydrateTheoryCourse(item, gradeId) {
         src: "",
       },
     ],
+    annotationSample: getAnnotationSample(gradeId, item.id),
+    digitalSample: DIGITAL_TEXTBOOK_SAMPLES[gradeId]?.[item.id] || null,
     scoreSources,
     scoreSections,
     scoreImages: scoreSections.flatMap((section) => section.pages),
@@ -1066,23 +1267,6 @@ function renderCoverGallery(root, items) {
         )
         .join("")}
     </div>
-    <nav class="grade-quick-switch" aria-label="Theory grade switch">
-      ${items
-        .map(
-          (item, index) => `
-            <button
-              type="button"
-              class="${index === 0 ? "is-active" : ""}"
-              data-grade-select="${escapeHtml(item.gradeId || "")}"
-              data-index="${index}"
-            >
-              <span>${escapeHtml(item.title)}</span>
-              <small>${escapeHtml(item.tags[0] || "theory")}</small>
-            </button>
-          `,
-        )
-        .join("")}
-    </nav>
   `;
 }
 
@@ -1092,7 +1276,6 @@ function bindCoverGallery(root, items, onSelectGrade) {
   renderCoverGallery(root, items);
 
   const cards = [...root.querySelectorAll("[data-gallery-card]")];
-  const quickButtons = [...root.querySelectorAll("[data-grade-select]")];
   const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
   const state = {
     current: 0,
@@ -1165,17 +1348,10 @@ function bindCoverGallery(root, items, onSelectGrade) {
     requestLayout();
   }
 
-  function setActiveGrade(index) {
-    quickButtons.forEach((button) => {
-      button.classList.toggle("is-active", Number(button.dataset.index || 0) === index);
-    });
-  }
-
   function selectCard(card) {
     const index = Number(card.dataset.index || 0);
     state.target = index;
     snapTarget();
-    setActiveGrade(index);
     onSelectGrade?.(items[index]);
   }
 
@@ -1184,13 +1360,6 @@ function bindCoverGallery(root, items, onSelectGrade) {
       if (event.key !== "Enter" && event.key !== " ") return;
       event.preventDefault();
       selectCard(card);
-    });
-  });
-
-  quickButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const index = Number(button.dataset.index || 0);
-      selectCard(cards[index]);
     });
   });
 
@@ -1749,7 +1918,345 @@ function renderCompareSourcePanel(course, source, activeSourceId) {
   `;
 }
 
+function renderHeartPulse(count) {
+  const full = Math.floor(count);
+  const half = count % 1 ? 1 : 0;
+  return `
+    <span class="heart-row" aria-label="${escapeHtml(count)} beats">
+      ${Array.from({ length: full }, () => "<i></i>").join("")}
+      ${half ? "<i class=\"is-half\"></i>" : ""}
+    </span>
+  `;
+}
+
+function renderMiniStaff() {
+  return `
+    <div class="digital-staff" aria-label="五线谱上音符位置由低到高">
+      <span></span><span></span><span></span><span></span><span></span>
+      ${[10, 18, 28, 38, 49, 59, 70, 80, 90].map((x, index) => `<b style="--x:${x}%;--y:${78 - index * 6}%"></b>`).join("")}
+      <em class="staff-low">低</em>
+      <em class="staff-high">高</em>
+    </div>
+  `;
+}
+
+function renderDigitalCallout(callout) {
+  return `
+    <div class="digital-pulse-card">
+      <strong>${escapeHtml(callout.label)}：</strong>
+      ${renderHeartPulse(callout.hearts)}
+      ${callout.beats ? `<div class="beat-row"><strong>拍数：</strong>${callout.beats.map((beat) => `<span>${escapeHtml(beat)}</span>`).join("")}</div>` : ""}
+    </div>
+  `;
+}
+
+function renderDigitalSection(section) {
+  return `
+    <section class="digital-info-section">
+      <header>
+        <span aria-hidden="true">i</span>
+        <h4>${escapeHtml(section.heading)}</h4>
+      </header>
+      <div class="digital-section-body">
+        <div class="digital-copy">
+          ${(section.points || []).map((point) => `<p>${escapeHtml(point)}</p>`).join("")}
+          ${(section.callouts || []).map(renderDigitalCallout).join("")}
+          ${(section.followUps || []).map((point) => `<p>${escapeHtml(point)}</p>`).join("")}
+          ${section.staff ? renderMiniStaff() : ""}
+        </div>
+        ${section.noteCard ? `
+          <aside class="note-value-card">
+            ${section.noteCard.rows.map((row) => `
+              <div>
+                <strong>${escapeHtml(row[0])}</strong>
+                <span>${escapeHtml(row[1])}</span>
+                <b>${escapeHtml(row[2])}</b>
+              </div>
+            `).join("")}
+          </aside>
+        ` : ""}
+        ${section.stemCard ? `
+          <aside class="stem-card">
+            <span>${escapeHtml(section.stemCard.notehead)}</span>
+            <b>♩</b>
+            <span>${escapeHtml(section.stemCard.stem)}</span>
+          </aside>
+        ` : ""}
+      </div>
+    </section>
+  `;
+}
+
+function renderTimeValueCard(card) {
+  if (!card) return "";
+  return `
+    <aside class="time-value-card" aria-label="常见音符时值">
+      ${card.rows.map((row) => `
+        <div>
+          <strong>${escapeHtml(row.name)}</strong>
+          <span>${escapeHtml(row.symbol)}</span>
+          <b>${escapeHtml(row.count)}</b>
+          ${renderHeartPulse(row.hearts)}
+        </div>
+      `).join("")}
+    </aside>
+  `;
+}
+
+function renderDigitalExercise(exercise) {
+  if (exercise.type === "choices") {
+    return `
+      <section class="digital-exercise">
+        <h4><span>练习 ${escapeHtml(exercise.number)}</span>${escapeHtml(exercise.title)}</h4>
+        <div class="choice-list">
+          ${exercise.rows.map((row) => `
+            <div>
+              <b>${escapeHtml(row[0])}</b>
+              <p>${escapeHtml(row[1])}</p>
+              <ul>${row[2].map((choice) => `<li>${escapeHtml(choice)}</li>`).join("")}</ul>
+            </div>
+          `).join("")}
+        </div>
+      </section>
+    `;
+  }
+
+  return `
+    <section class="digital-exercise">
+      <h4><span>练习 ${escapeHtml(exercise.number)}</span>${escapeHtml(exercise.title)}</h4>
+      <table class="exercise-table">
+        <thead>
+          <tr>${exercise.headers.map((header) => `<th>${escapeHtml(header)}</th>`).join("")}</tr>
+        </thead>
+        <tbody>
+          ${exercise.rows.map((row) => `
+            <tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </section>
+  `;
+}
+
+function renderDigitalTextbookPage(page) {
+  const isChapter = page.variant === "chapter";
+  const sectionMarkup = (page.sections || []).map(renderDigitalSection).join("");
+  const exerciseMarkup = (page.exercises || []).map(renderDigitalExercise).join("");
+  const sideMarkup = `
+    ${renderTimeValueCard(page.timeValueCard)}
+    ${page.soundBox ? `
+      <aside class="theory-sound-card">
+        <strong>${escapeHtml(page.soundBox.title)}</strong>
+        <p>${escapeHtml(page.soundBox.text)}</p>
+      </aside>
+    ` : ""}
+  `;
+  return `
+    <article class="digital-textbook-page ${isChapter ? "is-chapter" : "is-basics"}">
+      <div class="digital-page-meta">
+        <span>${escapeHtml(page.eyebrow)}</span>
+        <span>${escapeHtml(page.sourcePage)}</span>
+      </div>
+      <header class="digital-page-hero">
+        <div>
+          <small>${isChapter ? "Discovering Music Theory Grade 1" : "Discovering Music Theory"}</small>
+          <h3>${escapeHtml(page.title)}</h3>
+          <p>${escapeHtml(page.subtitle)}</p>
+        </div>
+        ${page.learnAbout ? `
+          <aside>
+            <strong>本章中，我们将学习</strong>
+            ${page.learnAbout.map((item) => `<span>${escapeHtml(item)}</span>`).join("")}
+          </aside>
+        ` : ""}
+      </header>
+      <div class="digital-page-body">
+        ${isChapter ? `
+          <div class="digital-chapter-top">
+            <div class="digital-main-flow">${sectionMarkup}</div>
+            <div class="digital-side-flow">${sideMarkup}</div>
+          </div>
+          <div class="digital-exercise-flow">${exerciseMarkup}</div>
+        ` : `
+          <div class="digital-main-flow">${sectionMarkup}${exerciseMarkup}</div>
+          <div class="digital-side-flow">${sideMarkup}</div>
+        `}
+      </div>
+    </article>
+  `;
+}
+
+function renderDigitalTextbookSample(course) {
+  const sample = course.digitalSample;
+  return `
+    <div class="digital-textbook-sample">
+      <div class="digital-page-stack">
+        ${sample.pages.map(renderDigitalTextbookPage).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function boundedPercent(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return 0;
+  return Math.min(100, Math.max(0, number));
+}
+
+function renderOcrTextSegment(segment) {
+  const style = [
+    `--x:${boundedPercent(segment.x)}%`,
+    `--y:${boundedPercent(segment.y)}%`,
+    `--w:${boundedPercent(segment.w)}%`,
+    `--h:${boundedPercent(segment.h)}%`,
+    `--fs:${Number(segment.fs) || 1.45}`,
+  ].join(";");
+
+  return `
+    <span
+      class="ocr-text-segment"
+      style="${style}"
+      data-ocr-segment="${escapeHtml(segment.id)}"
+      data-zh="${escapeHtml(segment.zh)}"
+      data-text="${escapeHtml(segment.text)}"
+    >${escapeHtml(segment.text)}</span>
+  `;
+}
+
+function renderAnnotationPage(page, index) {
+  return `
+    <article class="annotation-page" aria-label="${escapeHtml(page.pageLabel)} ${escapeHtml(page.sourceLabel)}">
+      <div class="annotation-page-meta">
+        <span>${escapeHtml(page.pageLabel)}</span>
+        <span>${escapeHtml(page.sourceLabel)}</span>
+      </div>
+      <figure class="annotation-page-frame">
+        <img src="${escapeHtml(page.src)}" alt="${escapeHtml(page.alt)}" loading="${index === 0 ? "eager" : "lazy"}" />
+        <figcaption class="ocr-text-layer" data-ocr-text>${page.ocrSegments.map(renderOcrTextSegment).join("")}</figcaption>
+        <div class="ocr-selection-box" data-selection-box hidden></div>
+      </figure>
+    </article>
+  `;
+}
+
+function renderAnnotationReader(course) {
+  const sample = course.annotationSample;
+  return `
+    <div class="annotation-reader" data-annotation-reader>
+      <div class="annotation-reader-head">
+        <div>
+          <span>${escapeHtml(sample.label)}</span>
+          <strong>${escapeHtml(course.title)}</strong>
+          <em>${escapeHtml(sample.note)}</em>
+        </div>
+        <b>${escapeHtml(sample.badge || `${course.classLabel} / ${sample.pages.length} pages`)}</b>
+      </div>
+      <div class="annotation-page-stack">
+        ${sample.pages.map(renderAnnotationPage).join("")}
+      </div>
+      <div class="selection-translation-popover" data-selection-popover hidden></div>
+    </div>
+  `;
+}
+
+let activeOcrBoxSelection = null;
+
+function rectsIntersect(a, b) {
+  return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+}
+
+function hideSelectionPopover(root) {
+  const popover = root.querySelector("[data-selection-popover]");
+  if (popover) popover.hidden = true;
+}
+
+function clearOcrSelection(root) {
+  root.querySelectorAll("[data-ocr-segment].is-selected").forEach((segment) => segment.classList.remove("is-selected"));
+  root.querySelectorAll("[data-selection-box]").forEach((box) => {
+    box.hidden = true;
+    box.style.cssText = "";
+  });
+}
+
+function showOcrTranslation(root, segments, rect) {
+  const popover = root.querySelector("[data-selection-popover]");
+  if (!popover || !segments.length) {
+    hideSelectionPopover(root);
+    return;
+  }
+  const zhText = segments.map((segment) => segment.dataset.zh).filter(Boolean).join(" ");
+  const enText = segments.map((segment) => segment.dataset.text).filter(Boolean).join(" ");
+  const left = Math.max(8, Math.min(window.innerWidth - 392, rect.left));
+  const top = Math.max(8, Math.min(window.innerHeight - 130, rect.bottom + 12));
+  popover.innerHTML = `<span>${escapeHtml(zhText)}</span><em>${escapeHtml(enText)}</em>`;
+  popover.style.left = `${left}px`;
+  popover.style.top = `${top}px`;
+  popover.hidden = false;
+}
+
+function updateOcrSelection(root, frame, rect) {
+  const segments = Array.from(frame.querySelectorAll("[data-ocr-segment]"));
+  const selected = segments.filter((segment) => rectsIntersect(rect, segment.getBoundingClientRect()));
+  segments.forEach((segment) => segment.classList.toggle("is-selected", selected.includes(segment)));
+  return selected;
+}
+
+function beginOcrBoxSelection(root, event) {
+  const layer = event.target.closest("[data-ocr-text]");
+  if (!layer) return;
+  const frame = layer.closest(".annotation-page-frame");
+  const box = frame?.querySelector("[data-selection-box]");
+  if (!frame || !box) return;
+  event.preventDefault();
+  clearOcrSelection(root);
+  hideSelectionPopover(root);
+  activeOcrBoxSelection = { root, frame, box, startX: event.clientX, startY: event.clientY };
+  box.hidden = false;
+  box.style.left = `${event.clientX - frame.getBoundingClientRect().left}px`;
+  box.style.top = `${event.clientY - frame.getBoundingClientRect().top}px`;
+  box.style.width = "0px";
+  box.style.height = "0px";
+  event.target.setPointerCapture?.(event.pointerId);
+}
+
+function moveOcrBoxSelection(event) {
+  if (!activeOcrBoxSelection) return;
+  event.preventDefault();
+  const { frame, box, startX, startY } = activeOcrBoxSelection;
+  const frameRect = frame.getBoundingClientRect();
+  const left = Math.min(startX, event.clientX);
+  const top = Math.min(startY, event.clientY);
+  const right = Math.max(startX, event.clientX);
+  const bottom = Math.max(startY, event.clientY);
+  box.style.left = `${left - frameRect.left}px`;
+  box.style.top = `${top - frameRect.top}px`;
+  box.style.width = `${right - left}px`;
+  box.style.height = `${bottom - top}px`;
+  activeOcrBoxSelection.latestRect = { left, top, right, bottom };
+}
+
+function finishOcrBoxSelection(event) {
+  if (!activeOcrBoxSelection) return;
+  moveOcrBoxSelection(event);
+  const { root, frame, latestRect } = activeOcrBoxSelection;
+  activeOcrBoxSelection = null;
+  if (!latestRect || latestRect.right - latestRect.left < 4 || latestRect.bottom - latestRect.top < 4) {
+    clearOcrSelection(root);
+    hideSelectionPopover(root);
+    return;
+  }
+  const selected = updateOcrSelection(root, frame, latestRect);
+  showOcrTranslation(root, selected, latestRect);
+}
+
+function handleAnnotationSelection(root) {
+  return root.querySelectorAll("[data-ocr-segment].is-selected").length;
+}
+
 function renderTheoryCourseScores(course, activeSourceId = "zh") {
+  if (course.annotationSample) return renderAnnotationReader(course);
+  if (course.digitalSample) return renderDigitalTextbookSample(course);
+
   const safeActiveSource = course.scoreSources.some((source) => source.id === activeSourceId) ? activeSourceId : "zh";
   return `
     <div class="material-reader" data-score-reader>
@@ -1900,13 +2407,6 @@ function bindBlankWorkspace(model) {
     !heroStats ||
     !levelBoard ||
     !levelSummary ||
-    !queryInput ||
-    !levelFilter ||
-    !moduleFilter ||
-    !resourceCount ||
-    !activeSummary ||
-    !tagCloud ||
-    !resourceList ||
     !courseDetail
   ) {
     return;
@@ -1934,8 +2434,8 @@ function bindBlankWorkspace(model) {
     document.getElementById("lesson")?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
-  levelFilter.insertAdjacentHTML("beforeend", renderLevelOptions(model));
-  moduleFilter.insertAdjacentHTML("beforeend", renderModuleOptions(model));
+  levelFilter?.insertAdjacentHTML("beforeend", renderLevelOptions(model));
+  moduleFilter?.insertAdjacentHTML("beforeend", renderModuleOptions(model));
 
   function selectResource(resourceId, shouldScroll = false) {
     const resource = model.resources.find((item) => item.id === resourceId);
@@ -1986,27 +2486,27 @@ function bindBlankWorkspace(model) {
     if (state.module !== "all") summaryParts.push(findModuleById(model.modules, state.module).title);
 
     root.dataset.mode = model.mode;
-    queryInput.value = state.query;
-    levelFilter.value = state.level;
-    moduleFilter.value = state.module;
+    if (queryInput) queryInput.value = state.query;
+    if (levelFilter) levelFilter.value = state.level;
+    if (moduleFilter) moduleFilter.value = state.module;
     heroStats.innerHTML = renderStats(model, result);
     levelBoard.innerHTML = renderLevelBoard(model, activeLevel);
     levelSummary.textContent = `${result.levels.length} 个阶段 · ${result.modules.length} 个模块 · 0 个真实资料`;
-    resourceCount.textContent = `${result.resources.length} 个占位资源`;
-    activeSummary.textContent = summaryParts.length ? summaryParts.join(" · ") : "全部空白资源位";
-    tagCloud.innerHTML = renderTagCloud(model, result.resources);
-    resourceList.innerHTML = renderResourceList(model, result.resources, state.selectedResourceId);
+    if (resourceCount) resourceCount.textContent = `${result.resources.length} 个占位资源`;
+    if (activeSummary) activeSummary.textContent = summaryParts.length ? summaryParts.join(" · ") : "全部空白资源位";
+    if (tagCloud) tagCloud.innerHTML = renderTagCloud(model, result.resources);
+    if (resourceList) resourceList.innerHTML = renderResourceList(model, result.resources, state.selectedResourceId);
     courseDetail.innerHTML = renderTheoryCourseDetail(selectedCourse, courses, state.detailTab, state.scoreSource);
 
     levelBoard.querySelectorAll("[data-level]").forEach((button) => {
       button.addEventListener("click", () => setLevel(button.dataset.level));
     });
 
-    tagCloud.querySelectorAll("[data-query]").forEach((button) => {
+    tagCloud?.querySelectorAll("[data-query]").forEach((button) => {
       button.addEventListener("click", () => setQuery(button.dataset.query));
     });
 
-    resourceList.querySelectorAll("[data-resource]").forEach((button) => {
+    resourceList?.querySelectorAll("[data-resource]").forEach((button) => {
       button.addEventListener("click", () => selectResource(button.dataset.resource, true));
     });
 
@@ -2033,16 +2533,28 @@ function bindBlankWorkspace(model) {
         updateScoreSource(courseDetail, state.scoreSource);
       });
     });
+
+    if (courseDetail.querySelector("[data-ocr-text]")) {
+      courseDetail.addEventListener("pointerdown", (event) => beginOcrBoxSelection(courseDetail, event));
+      courseDetail.addEventListener("pointermove", moveOcrBoxSelection);
+      courseDetail.addEventListener("pointerup", finishOcrBoxSelection);
+      courseDetail.addEventListener("pointercancel", () => {
+        activeOcrBoxSelection = null;
+        clearOcrSelection(courseDetail);
+        hideSelectionPopover(courseDetail);
+      });
+    }
+
   }
 
-  queryInput.addEventListener("input", (event) => {
+  queryInput?.addEventListener("input", (event) => {
     state.query = event.target.value;
     render();
   });
 
-  levelFilter.addEventListener("change", (event) => setLevel(event.target.value));
+  levelFilter?.addEventListener("change", (event) => setLevel(event.target.value));
 
-  moduleFilter.addEventListener("change", (event) => {
+  moduleFilter?.addEventListener("change", (event) => {
     state.module = event.target.value;
     render();
   });

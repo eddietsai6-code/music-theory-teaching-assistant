@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>乐理教学助手</title>
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="./assets/styles.css?v=discover-1-5-reader-3" />
+    <link rel="stylesheet" href="./assets/styles.css?v=g1-full-ocr-selection" />
     <script type="module" src="https://eddietsai6-code.github.io/audio-speed-player/dist/audio-speed-player-pro.js"></script>
   </head>
   <body>
@@ -17,7 +17,6 @@
         </a>
         <nav class="site-nav" aria-label="页面区块">
           <a href="#levels">阶段</a>
-          <a href="#workbench">资源台</a>
           <a href="#lesson">课时</a>
         </nav>
       </header>
@@ -32,7 +31,6 @@
           </p>
           <div id="heroStats" class="stat-row" aria-label="工作台统计" aria-live="polite"></div>
           <div class="hero-actions">
-            <a class="pill-button" href="#workbench">打开资源台</a>
             <a class="quiet-link" href="#levels">查看阶段</a>
           </div>
           <p class="preorder-note">零资料框架 · 所有讲义、音频、谱面和题卡均标记为待填充。</p>
@@ -96,39 +94,6 @@
         <div id="levelBoard" class="level-board chroma-grid" aria-label="阶段选择"></div>
       </section>
 
-      <section class="section workbench-section" id="workbench" aria-label="乐理资源工作台">
-        <div class="section-heading wide">
-          <p class="marker-caption">resource workbench</p>
-          <h2>每个资源都是占位卡，不偷偷接入任何旧内容。</h2>
-        </div>
-        <div class="filters" aria-label="筛选资源">
-          <label>
-            <span>搜索</span>
-            <input id="queryInput" type="search" placeholder="节奏、视唱、错题" />
-          </label>
-          <label>
-            <span>阶段</span>
-            <select id="levelFilter">
-              <option value="all">全部阶段</option>
-            </select>
-          </label>
-          <label>
-            <span>模块</span>
-            <select id="moduleFilter">
-              <option value="all">全部模块</option>
-            </select>
-          </label>
-        </div>
-        <div class="catalog-head">
-          <div>
-            <strong id="resourceCount">0 个占位资源</strong>
-            <p id="activeSummary">全部空白资源位</p>
-          </div>
-          <div id="tagCloud" class="tag-cloud" aria-label="资源标签"></div>
-        </div>
-        <div id="resourceList" class="resource-label-grid" aria-live="polite"></div>
-      </section>
-
       <section class="section lesson-section" id="lesson" aria-label="乐理课时详情">
         <div class="section-heading">
           <p class="marker-caption">lesson page</p>
@@ -144,6 +109,6 @@
       <p>Static zero-data framework. Fill course materials only after the project bus assigns data tasks.</p>
     </footer>
 
-    <script type="module" src="./assets/app.mjs?v=discover-1-5-reader-3"></script>
+    <script type="module" src="./assets/app.mjs?v=g1-full-ocr-selection"></script>
   </body>
 </html>
